@@ -1,0 +1,43 @@
+# Polar Weekly Report - Dependencies
+
+# Web Framework
+flask>=2.3.0
+flask-cors>=4.0.0
+
+# Database
+sqlalchemy>=2.0.0
+alembic>=1.12.0
+
+# HTTP Requests
+requests>=2.31.0
+
+# Scheduling
+apscheduler>=3.10.0
+
+# Environment & Configuration
+python-dotenv>=1.0.0
+
+# Email
+# (using built-in smtplib, but adding email-validator for optional validation)
+email-validator>=2.0.0
+
+# Templating
+jinja2>=3.1.0
+
+# Data visualization (for chart generation)
+matplotlib>=3.8.0
+pillow>=10.0.0
+
+# Date/Time handling
+python-dateutil>=2.8.0
+pytz>=2023.3
+
+# Security
+cryptography>=41.0.0
+
+# Development & Testing
+pytest>=7.4.0
+pytest-cov>=4.1.0
+
+# Optional: For production deployment
+gunicorn>=21.0.0

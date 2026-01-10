@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polar Training Report</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background-color: #f5f5f7;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+        }
+
+        /* Header section */
+        .header {
+            background: linear-gradient(135deg, #e63946 0%, #d62839 100%);
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .header .date-range {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .rating-badge {
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.2);
+            padding: 8px 20px;
+            border-radius: 20px;
+            margin-top: 15px;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        /* Section styles */
+        .section {
+            padding: 25px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a2e;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title .icon {
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f0f0f5;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        /* Comparison table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .comparison-table th {
+            background-color: #f8f9fa;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #666;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: #555;
+        }
+
+        .metric-value {
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .change-positive {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .change-negative {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .change-neutral {
+            color: #6c757d;
+        }
+
+        /* HR Zone bars */
+        .zone-bars {
+            margin-top: 15px;
+        }
+
+        .zone-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .zone-label {
+            width: 100px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .zone-bar-container {
+            flex: 1;
+            height: 20px;
+            background-color: #f0f0f5;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 0 10px;
+        }
+
+        .zone-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .zone-1 { background-color: #90cdf4; }
+        .zone-2 { background-color: #68d391; }
+        .zone-3 { background-color: #faf089; }
+        .zone-4 { background-color: #feb2b2; }
+        .zone-5 { background-color: #e63946; }
+
+        .zone-percent {
+            width: 45px;
+            text-align: right;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        /* Sleep & Recovery section */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .metric-card {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .metric-card .value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a2e;
+        }
+
+        .metric-card .label {
+            font-size: 12px;
+            color: #666;
+            margin-top: 4px;
+        }
+
+        .metric-card .change {
+            font-size: 12px;
+            margin-top: 4px;
+        }
+
+        /* Sleep breakdown */
+        .sleep-breakdown {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .sleep-stage {
+            text-align: center;
+        }
+
+        .sleep-stage .icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .sleep-stage .value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .sleep-stage .label {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .deep-icon { background-color: #c3dafe; }
+        .rem-icon { background-color: #faf089; }
+        .light-icon { background-color: #c6f6d5; }
+
+        /* Highlights section */
+        .highlight {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .highlight:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-achievement {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+        }
+
+        .highlight-concern {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+        }
+
+        .highlight .icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 14px;
+        }
+
+        .highlight-content {
+            flex: 1;
+        }
+
+        .highlight-message {
+            font-weight: 600;
+            color: #1a1a2e;
+            font-size: 14px;
+        }
+
+        .highlight-details {
+            font-size: 13px;
+            color: #555;
+            margin-top: 2px;
+        }
+
+        /* Sports breakdown */
+        .sports-table {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .sports-table th {
+            text-align: left;
+            padding: 8px;
+            font-size: 12px;
+            color: #666;
+            font-weight: 500;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sports-table td {
+            padding: 10px 8px;
+            font-size: 14px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .sport-name {
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #f8f9fa;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .footer-links {
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: #e63946;
+            text-decoration: none;
+            font-size: 14px;
+            margin: 0 10px;
+        }
+
+        .footer-text {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 480px) {
+            .header {
+                padding: 20px 15px;
+            }
+
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .section {
+                padding: 20px 15px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .sleep-breakdown {
+                flex-wrap: wrap;
+                gap: 15px;
+            }
+
+            .sleep-stage {
+                width: 45%;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Your Polar Training Report</h1>
+            <div class="date-range">{{ week_start.strftime('%B %d') }} - {{ week_end.strftime('%B %d, %Y') }}</div>
+            <div class="rating-badge">{{ overall_rating }}</div>
+        </div>
+
+        <!-- Training Summary Section -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">&#127939;</span>
+                Training Summary
+            </h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>This Week</th>
+                        <th>Last Week</th>
+                        <th>Change</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="metric-label">Sessions</td>
+                        <td class="metric-value">{{ training.total_sessions }}</td>
+                        <td>{{ comparison.previous_sessions if comparison else '-' }}</td>
+                        <td>
+                            {% if comparison %}
+                                {% if comparison.session_change_percent > 0 %}
+                                    <span class="change-positive">+{{ comparison.session_change_percent|round(0)|int }}%</span>
+                                {% elif comparison.session_change_percent < 0 %}
+                                    <span class="change-negative">{{ comparison.session_change_percent|round(0)|int }}%</span>
+                                {% else %}
+                                    <span class="change-neutral">-</span>
+                                {% endif %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="metric-label">Duration</td>
+                        <td class="metric-value">{{ format_duration(training.total_duration_seconds) }}</td>
+                        <td>{{ format_duration(comparison.previous_duration_hours * 3600) if comparison else '-' }}</td>
+                        <td>
+                            {% if comparison %}
+                                {% if comparison.duration_change_percent > 0 %}
+                                    <span class="change-positive">+{{ comparison.duration_change_percent|round(0)|int }}%</span>
+                                {% elif comparison.duration_change_percent < 0 %}
+                                    <span class="change-negative">{{ comparison.duration_change_percent|round(0)|int }}%</span>
+                                {% else %}
+                                    <span class="change-neutral">-</span>
+                                {% endif %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="metric-label">Distance</td>
+                        <td class="metric-value">{{ format_distance(training.total_distance_meters) }}</td>
+                        <td>{{ "%.1f km"|format(comparison.previous_distance_km) if comparison else '-' }}</td>
+                        <td>
+                            {% if comparison %}
+                                {% if comparison.distance_change_percent > 0 %}
+                                    <span class="change-positive">+{{ comparison.distance_change_percent|round(0)|int }}%</span>
+                                {% elif comparison.distance_change_percent < 0 %}
+                                    <span class="change-negative">{{ comparison.distance_change_percent|round(0)|int }}%</span>
+                                {% else %}
+                                    <span class="change-neutral">-</span>
+                                {% endif %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="metric-label">Calories</td>
+                        <td class="metric-value">{{ "{:,}".format(training.total_calories) }} kcal</td>
+                        <td>{{ "{:,}".format(comparison.previous_calories) if comparison else '-' }}</td>
+                        <td>
+                            {% if comparison %}
+                                {% if comparison.calories_change_percent > 0 %}
+                                    <span class="change-positive">+{{ comparison.calories_change_percent|round(0)|int }}%</span>
+                                {% elif comparison.calories_change_percent < 0 %}
+                                    <span class="change-negative">{{ comparison.calories_change_percent|round(0)|int }}%</span>
+                                {% else %}
+                                    <span class="change-neutral">-</span>
+                                {% endif %}
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Heart Rate Zones Section -->
+        {% if training.hr_zones.total_seconds > 0 %}
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">&#10084;</span>
+                Heart Rate Zones
+            </h2>
+            {% set zone_pcts = training.hr_zones.get_percentages() %}
+            <div class="zone-bars">
+                <div class="zone-bar">
+                    <span class="zone-label">Zone 5 (Max)</span>
+                    <div class="zone-bar-container">
+                        <div class="zone-bar-fill zone-5" style="width: {{ zone_pcts.zone5 }}%"></div>
+                    </div>
+                    <span class="zone-percent">{{ zone_pcts.zone5|round(0)|int }}%</span>
+                </div>
+                <div class="zone-bar">
+                    <span class="zone-label">Zone 4 (Hard)</span>
+                    <div class="zone-bar-container">
+                        <div class="zone-bar-fill zone-4" style="width: {{ zone_pcts.zone4 }}%"></div>
+                    </div>
+                    <span class="zone-percent">{{ zone_pcts.zone4|round(0)|int }}%</span>
+                </div>
+                <div class="zone-bar">
+                    <span class="zone-label">Zone 3 (Moderate)</span>
+                    <div class="zone-bar-container">
+                        <div class="zone-bar-fill zone-3" style="width: {{ zone_pcts.zone3 }}%"></div>
+                    </div>
+                    <span class="zone-percent">{{ zone_pcts.zone3|round(0)|int }}%</span>
+                </div>
+                <div class="zone-bar">
+                    <span class="zone-label">Zone 2 (Light)</span>
+                    <div class="zone-bar-container">
+                        <div class="zone-bar-fill zone-2" style="width: {{ zone_pcts.zone2 }}%"></div>
+                    </div>
+                    <span class="zone-percent">{{ zone_pcts.zone2|round(0)|int }}%</span>
+                </div>
+                <div class="zone-bar">
+                    <span class="zone-label">Zone 1 (Recovery)</span>
+                    <div class="zone-bar-container">
+                        <div class="zone-bar-fill zone-1" style="width: {{ zone_pcts.zone1 }}%"></div>
+                    </div>
+                    <span class="zone-percent">{{ zone_pcts.zone1|round(0)|int }}%</span>
+                </div>
+            </div>
+            {% if training.avg_heart_rate %}
+            <p style="margin-top: 15px; font-size: 14px; color: #555;">
+                Average HR: <strong>{{ training.avg_heart_rate|round(0)|int }} bpm</strong>
+                {% if training.max_heart_rate %}
+                | Max HR: <strong>{{ training.max_heart_rate }} bpm</strong>
+                {% endif %}
+            </p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Recovery & Sleep Section -->
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">&#127769;</span>
+                Recovery & Sleep
+            </h2>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="value">
+                        {% if recovery.avg_recharge_status %}
+                            {{ "%.1f"|format(recovery.avg_recharge_status) }}/5
+                        {% else %}
+                            -
+                        {% endif %}
+                    </div>
+                    <div class="label">Nightly Recharge</div>
+                    {% if comparison and comparison.recharge_change is not none %}
+                        {% if comparison.recharge_change > 0 %}
+                            <div class="change change-positive">+{{ "%.1f"|format(comparison.recharge_change) }} from last week</div>
+                        {% elif comparison.recharge_change < 0 %}
+                            <div class="change change-negative">{{ "%.1f"|format(comparison.recharge_change) }} from last week</div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="metric-card">
+                    <div class="value">
+                        {% if sleep.avg_sleep_score %}
+                            {{ sleep.avg_sleep_score|round(0)|int }}/100
+                        {% else %}
+                            -
+                        {% endif %}
+                    </div>
+                    <div class="label">Sleep Score</div>
+                    {% if comparison and comparison.sleep_score_change is not none %}
+                        {% if comparison.sleep_score_change > 0 %}
+                            <div class="change change-positive">+{{ comparison.sleep_score_change|round(0)|int }} from last week</div>
+                        {% elif comparison.sleep_score_change < 0 %}
+                            <div class="change change-negative">{{ comparison.sleep_score_change|round(0)|int }} from last week</div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                <div class="metric-card">
+                    <div class="value">{{ "%.0f"|format(sleep.avg_duration_hours) }}h {{ ((sleep.avg_duration_hours % 1) * 60)|round(0)|int }}min</div>
+                    <div class="label">Avg Sleep Duration</div>
+                </div>
+                <div class="metric-card">
+                    <div class="value">
+                        {% if recovery.avg_hrv %}
+                            {{ recovery.avg_hrv|round(0)|int }} ms
+                        {% else %}
+                            -
+                        {% endif %}
+                    </div>
+                    <div class="label">Avg HRV</div>
+                </div>
+            </div>
+
+            {% if sleep.avg_deep_sleep_hours > 0 or sleep.avg_rem_sleep_hours > 0 %}
+            <div class="sleep-breakdown">
+                <div class="sleep-stage">
+                    <div class="icon deep-icon">&#128564;</div>
+                    <div class="value">{{ "%.0f"|format(sleep.avg_deep_sleep_hours) }}h {{ ((sleep.avg_deep_sleep_hours % 1) * 60)|round(0)|int }}m</div>
+                    <div class="label">Deep Sleep</div>
+                </div>
+                <div class="sleep-stage">
+                    <div class="icon rem-icon">&#128173;</div>
+                    <div class="value">{{ "%.0f"|format(sleep.avg_rem_sleep_hours) }}h {{ ((sleep.avg_rem_sleep_hours % 1) * 60)|round(0)|int }}m</div>
+                    <div class="label">REM Sleep</div>
+                </div>
+                <div class="sleep-stage">
+                    <div class="icon light-icon">&#127752;</div>
+                    <div class="value">{{ "%.0f"|format(sleep.avg_light_sleep_hours) }}h {{ ((sleep.avg_light_sleep_hours % 1) * 60)|round(0)|int }}m</div>
+                    <div class="label">Light Sleep</div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Highlights Section -->
+        {% if highlights %}
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">&#11088;</span>
+                Week Highlights
+            </h2>
+            {% for highlight in highlights %}
+            <div class="highlight highlight-{{ highlight.type }}">
+                <span class="icon">
+                    {% if highlight.type == 'achievement' %}&#9989;{% else %}&#9888;{% endif %}
+                </span>
+                <div class="highlight-content">
+                    <div class="highlight-message">{{ highlight.message }}</div>
+                    {% if highlight.details %}
+                    <div class="highlight-details">{{ highlight.details }}</div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Sports Breakdown Section -->
+        {% if training.sport_breakdown %}
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">&#127942;</span>
+                Sports Breakdown
+            </h2>
+            <table class="sports-table">
+                <thead>
+                    <tr>
+                        <th>Sport</th>
+                        <th>Sessions</th>
+                        <th>Distance</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for sport, data in training.sport_breakdown.items() %}
+                    <tr>
+                        <td class="sport-name">{{ sport.replace('_', ' ').title() }}</td>
+                        <td>{{ data.session_count }}</td>
+                        <td>{% if data.total_distance_meters > 0 %}{{ format_distance(data.total_distance_meters) }}{% else %}-{% endif %}</td>
+                        <td>{{ format_duration(data.total_duration_seconds) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        <!-- Training Load Section (if available) -->
+        {% if training.total_cardio_load > 0 or training.total_muscle_load > 0 %}
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">&#128170;</span>
+                Training Load
+            </h2>
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="value">{{ training.total_cardio_load|round(0)|int }}</div>
+                    <div class="label">Cardio Load</div>
+                </div>
+                <div class="metric-card">
+                    <div class="value">{{ training.total_muscle_load|round(0)|int }}</div>
+                    <div class="label">Muscle Load</div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-links">
+                <a href="https://flow.polar.com">View in Polar Flow</a>
+            </div>
+            <div class="footer-text">
+                Generated on {{ generation_time.strftime('%B %d, %Y at %H:%M') }}<br>
+                Polar Weekly Training Report
+            </div>
+        </div>
+    </div>
+</body>
+</html>
