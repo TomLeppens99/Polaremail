@@ -186,17 +186,18 @@ class WeeklyAggregator:
             Tuple of (week_start, week_end)
         """
         if reference_date is None:
-            # Default to last completed week
+            # Default to last completed week (Monday to Sunday)
             today = date.today()
-            # Go back to last Monday
-            days_since_monday = today.weekday()
-            if days_since_monday == 0:
-                # If today is Monday, go back to previous Monday
-                days_since_monday = 7
-            week_end = today - timedelta(days=days_since_monday)
-            week_start = week_end - timedelta(days=6)
+
+            # Find the Monday of the current week
+            days_since_monday = today.weekday()  # Monday=0, Sunday=6
+            current_week_monday = today - timedelta(days=days_since_monday)
+
+            # Last completed week is the week before current week
+            week_start = current_week_monday - timedelta(days=7)
+            week_end = week_start + timedelta(days=6)
         else:
-            # Get Monday of that week
+            # Get Monday of the specified week
             days_since_monday = reference_date.weekday()
             week_start = reference_date - timedelta(days=days_since_monday)
             week_end = week_start + timedelta(days=6)
