@@ -43,7 +43,7 @@ class Config:
     WEBHOOK_SECRET = os.getenv('WEBHOOK_SECRET', '')
 
     # Database Configuration
-    DATABASE_URL = os.getenv('DATABASE_URL', f'sqlite:///{BASE_DIR}/polar_data.db')
+    DATABASE_URL = os.getenv('DATABASE_URL', f'sqlite:///{(BASE_DIR / "polar_data.db").resolve().as_posix()}')
 
     # Schedule Configuration
     REPORT_DAY = os.getenv('REPORT_DAY', 'Monday')
