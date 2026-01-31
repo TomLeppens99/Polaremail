@@ -4,14 +4,12 @@ Designed to store webhook payloads and API responses for weekly report generatio
 """
 
 from datetime import datetime, date
-from typing import Optional
-import json
 
 from sqlalchemy import (
     create_engine, Column, Integer, String, Float, DateTime, Date,
-    Text, Boolean, JSON, ForeignKey, Index, event
+    Text, Boolean, JSON, Index
 )
-from sqlalchemy.orm import declarative_base, sessionmaker, relationship
+from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy.pool import StaticPool
 
 from .config import Config
@@ -343,11 +341,14 @@ def drop_db():
 def get_exercises_in_range(session, user_id: str, start_date: date, end_date: date) -> list:
     """Get all exercises within a date range."""
     from sqlalchemy import and_
+    from datetime import timedelta
+    # Use end_date + 1 day for inclusive end date range
+    end_datetime = datetime.combine(end_date + timedelta(days=1), datetime.min.time())
     return session.query(Exercise).filter(
         and_(
             Exercise.user_id == user_id,
             Exercise.start_time >= datetime.combine(start_date, datetime.min.time()),
-            Exercise.start_time < datetime.combine(end_date, datetime.max.time())
+            Exercise.start_time < end_datetime
         )
     ).order_by(Exercise.start_time).all()
 

@@ -11,7 +11,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
 from datetime import date
-from typing import Optional, List
+from typing import List
 
 from .config import Config
 from .report import generate_weekly_report
@@ -231,11 +231,11 @@ def send_test_email(recipient: str = None) -> bool:
     <html>
     <head>
         <style>
-            body { font-family: Arial, sans-serif; padding: 20px; }
-            .container { max-width: 600px; margin: 0 auto; }
-            .header { background: #e63946; color: white; padding: 20px; text-align: center; }
-            .content { padding: 20px; background: #f9f9f9; }
-            .success { color: #28a745; font-weight: bold; }
+            body {{ font-family: Arial, sans-serif; padding: 20px; }}
+            .container {{ max-width: 600px; margin: 0 auto; }}
+            .header {{ background: #e63946; color: white; padding: 20px; text-align: center; }}
+            .content {{ padding: 20px; background: #f9f9f9; }}
+            .success {{ color: #28a745; font-weight: bold; }}
         </style>
     </head>
     <body>

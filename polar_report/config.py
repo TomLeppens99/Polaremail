@@ -32,7 +32,10 @@ class Config:
 
     # Email Configuration
     EMAIL_SMTP_SERVER = os.getenv('EMAIL_SMTP_SERVER', 'smtp.gmail.com')
-    EMAIL_SMTP_PORT = int(os.getenv('EMAIL_SMTP_PORT', '587'))
+    try:
+        EMAIL_SMTP_PORT = int(os.getenv('EMAIL_SMTP_PORT', '587'))
+    except ValueError:
+        EMAIL_SMTP_PORT = 587
     EMAIL_USERNAME = os.getenv('EMAIL_USERNAME', '')
     EMAIL_PASSWORD = os.getenv('EMAIL_PASSWORD', '')
     EMAIL_RECIPIENT = os.getenv('EMAIL_RECIPIENT', '')

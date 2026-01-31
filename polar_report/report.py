@@ -7,7 +7,6 @@ import logging
 import os
 from datetime import datetime, date
 from pathlib import Path
-from typing import Optional
 
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
@@ -105,7 +104,7 @@ class ReportGenerator:
             Plain text string
         """
         lines = [
-            f"POLAR TRAINING REPORT",
+            "POLAR TRAINING REPORT",
             f"Week of {report.week_start.strftime('%B %d')} - {report.week_end.strftime('%B %d, %Y')}",
             f"Overall: {report.overall_rating}",
             "",

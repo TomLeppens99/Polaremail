@@ -5,8 +5,8 @@ Handles exercise, sleep, nightly recharge, and activity data retrieval.
 
 import logging
 import re
-from datetime import datetime, date, timedelta
-from typing import Optional, List, Dict, Any
+from datetime import date
+from typing import Optional, List, Dict
 
 import requests
 from dateutil import parser as date_parser
@@ -14,7 +14,7 @@ from dateutil import parser as date_parser
 from .config import Config
 from .models import (
     get_session, Exercise, SleepRecord, NightlyRecharge,
-    ActivitySummary, init_db
+    init_db
 )
 
 logger = logging.getLogger(__name__)

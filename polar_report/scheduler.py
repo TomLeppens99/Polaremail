@@ -7,7 +7,6 @@ import logging
 import signal
 import sys
 from datetime import datetime, timedelta
-from typing import Optional
 
 import pytz
 from apscheduler.schedulers.blocking import BlockingScheduler
@@ -50,8 +49,14 @@ def get_cron_trigger(day: str = None, time: str = None, timezone: str = None) ->
     time = time or Config.REPORT_TIME
     timezone = timezone or Config.TIMEZONE
 
-    # Parse time
-    hour, minute = time.split(':')
+    # Parse time with validation
+    time_parts = time.split(':')
+    if len(time_parts) >= 2:
+        hour = time_parts[0]
+        minute = time_parts[1]
+    else:
+        # Fall back to default 08:00
+        hour, minute = '8', '0'
 
     # Convert day name to cron format
     day_cron = DAY_MAP.get(day.lower(), 'mon')
@@ -238,12 +243,12 @@ def run_scheduler():
     scheduler.add_daily_sync_job()
 
     # Start scheduler (blocks)
-    print(f"\nPolar Weekly Report Scheduler")
-    print(f"=" * 40)
+    print("\nPolar Weekly Report Scheduler")
+    print("=" * 40)
     print(f"Report Schedule: {Config.REPORT_DAY} at {Config.REPORT_TIME}")
     print(f"Timezone: {Config.TIMEZONE}")
     print(f"Email recipient: {Config.EMAIL_RECIPIENT}")
-    print(f"\nPress Ctrl+C to stop\n")
+    print("\nPress Ctrl+C to stop\n")
 
     scheduler.start()
 
@@ -258,8 +263,16 @@ def get_next_report_time() -> datetime:
     tz = pytz.timezone(Config.TIMEZONE)
     now = datetime.now(tz)
 
-    # Parse configured time
-    hour, minute = map(int, Config.REPORT_TIME.split(':'))
+    # Parse configured time with validation
+    time_parts = Config.REPORT_TIME.split(':')
+    if len(time_parts) >= 2:
+        try:
+            hour = int(time_parts[0])
+            minute = int(time_parts[1])
+        except ValueError:
+            hour, minute = 8, 0
+    else:
+        hour, minute = 8, 0
 
     # Get configured day
     day_name = Config.REPORT_DAY.lower()

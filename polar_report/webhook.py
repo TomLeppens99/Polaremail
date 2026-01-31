@@ -9,7 +9,7 @@ import logging
 from datetime import datetime
 from typing import Optional
 
-from flask import Flask, request, jsonify, redirect, url_for, session
+from flask import Flask, request, jsonify, redirect, session
 from flask_cors import CORS
 
 from .config import Config
@@ -149,7 +149,11 @@ def process_sleep_event(event_data: dict, db_session) -> Optional[SleepRecord]:
         return None
 
     from dateutil import parser as date_parser
-    sleep_date = date_parser.parse(sleep_date_str).date()
+    try:
+        sleep_date = date_parser.parse(sleep_date_str).date()
+    except (ValueError, date_parser.ParserError) as e:
+        logger.error(f"Invalid date format in sleep event: {sleep_date_str} - {e}")
+        return None
 
     # Check if already exists
     existing = db_session.query(SleepRecord).filter_by(
@@ -243,7 +247,11 @@ def process_activity_event(event_data: dict, db_session) -> Optional[ActivitySum
         return None
 
     from dateutil import parser as date_parser
-    activity_date = date_parser.parse(activity_date_str).date()
+    try:
+        activity_date = date_parser.parse(activity_date_str).date()
+    except (ValueError, date_parser.ParserError) as e:
+        logger.error(f"Invalid date format in activity event: {activity_date_str} - {e}")
+        return None
 
     # Check if already exists
     existing = db_session.query(ActivitySummary).filter_by(
