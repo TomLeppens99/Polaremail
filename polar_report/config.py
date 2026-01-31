@@ -60,6 +60,14 @@ class Config:
     # Logging
     LOG_LEVEL = os.getenv('LOG_LEVEL', 'INFO')
 
+    # Health Digest Configuration
+    OPENWEATHERMAP_API_KEY = os.getenv('OPENWEATHERMAP_API_KEY', '')
+    OPTIMAL_SLEEP_HOURS = float(os.getenv('OPTIMAL_SLEEP_HOURS', '8.0'))
+
+    # Health Digest Schedule (separate from weekly report)
+    DIGEST_DAY = os.getenv('DIGEST_DAY', 'Sunday')
+    DIGEST_TIME = os.getenv('DIGEST_TIME', '20:00')
+
     @classmethod
     def get_polar_auth_header(cls) -> dict:
         """Get Basic Auth header for Polar API (client credentials)."""
@@ -105,6 +113,11 @@ class Config:
             cls.WEBHOOK_URL,
             cls.WEBHOOK_SECRET
         ])
+
+    @classmethod
+    def is_weather_configured(cls) -> bool:
+        """Check if weather API settings are properly configured."""
+        return bool(cls.OPENWEATHERMAP_API_KEY)
 
 
 # Convenience instance

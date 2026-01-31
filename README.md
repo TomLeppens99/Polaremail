@@ -4,6 +4,7 @@ An automated system that fetches your Polar fitness data via the Polar Accesslin
 
 ## Features
 
+### Weekly Training Report
 - **Training Volume Tracking**: Sessions, duration, distance, calories by sport
 - **Heart Rate Zone Analysis**: Time in each zone with percentage distribution
 - **Recovery Metrics**: Nightly Recharge, ANS Charge, HRV trends
@@ -11,6 +12,18 @@ An automated system that fetches your Polar fitness data via the Polar Accesslin
 - **Week-over-Week Comparisons**: Percentage changes for all metrics
 - **Smart Highlights**: Achievements and concerns automatically identified
 - **Beautiful HTML Reports**: Mobile-responsive email design
+
+### Weekly Health Digest (Advanced Analytics)
+- **ACWR (Acute:Chronic Workload Ratio)**: Detect injury risk (0.8-1.3 optimal)
+- **Training Monotony & Strain**: Assess overtraining risk from load variation
+- **HRV Trend Analysis**: Quadrant analysis (Coping Well, Adapting, Fatigued, Maladaptation)
+- **Aerobic Decoupling**: Measure aerobic fitness through pace:HR drift
+- **Sleep Architecture**: Deep/REM/Light percentages with deficit tracking
+- **Sleep Debt Tracker**: Accumulated sleep deficit with recovery timeline
+- **Early Warning System**: Detect illness/overtraining 24-48h before symptoms
+- **Weather-Performance Correlation**: Find optimal training conditions
+- **Time-of-Day Optimization**: Identify personal peak performance windows
+- **Performance Management Chart (CTL/ATL/TSB)**: Track fitness, fatigue, and form
 
 ## Quick Start
 
@@ -158,6 +171,12 @@ python -m polar_report report --save     # Save HTML to file
 python -m polar_report report --send     # Send via email
 python -m polar_report report --week 2025-01-06  # Specific week
 
+# Health Digest (Advanced Analytics)
+python -m polar_report digest            # Generate health digest
+python -m polar_report digest --save     # Save HTML to file
+python -m polar_report digest --send     # Send via email
+python -m polar_report digest --week 2025-01-06  # Specific week
+
 # Scheduling
 python -m polar_report schedule          # Start scheduler
 python -m polar_report schedule --next   # Show next report time
@@ -231,10 +250,15 @@ Polaremail/
 │   ├── webhook.py       # Flask webhook listener
 │   ├── aggregator.py    # Data aggregation
 │   ├── report.py        # Report generation
+│   ├── health_digest.py # Health Digest calculations
+│   ├── health_digest_report.py  # Health Digest report
+│   ├── chart_generator.py  # Chart generation (QuickChart.io)
+│   ├── weather_api.py   # OpenWeatherMap integration
 │   ├── email_sender.py  # Email delivery
 │   └── scheduler.py     # Scheduled jobs
 ├── templates/
-│   └── email_report.html  # Email template
+│   ├── email_report.html  # Email template
+│   └── email_health_digest.html  # Health Digest template
 ├── reports/             # Generated HTML reports
 ├── .env.example         # Environment template
 ├── requirements.txt     # Python dependencies
@@ -242,6 +266,30 @@ Polaremail/
 ```
 
 ## Metrics Explained
+
+### Health Digest Metrics
+
+#### ACWR (Acute:Chronic Workload Ratio)
+- **< 0.8**: Undertrained - risk of detraining
+- **0.8-1.3**: Optimal training zone
+- **1.3-1.5**: Caution - elevated injury risk
+- **> 1.5**: Danger zone - high injury risk
+
+#### Training Monotony
+- **< 1.5**: Good variation in training
+- **1.5-2.0**: Elevated risk - add more variety
+- **> 2.0**: High illness/injury risk
+
+#### HRV Quadrant Analysis
+- **Coping Well**: High HRV + Low CV - optimal recovery
+- **Adapting**: High HRV + High CV - responding to training
+- **Fatigued**: Low HRV + High CV - needs recovery
+- **Maladaptation**: Low HRV + Low CV - chronic stress warning
+
+#### Performance Management (CTL/ATL/TSB)
+- **CTL (Fitness)**: 42-day exponential moving average of training load
+- **ATL (Fatigue)**: 7-day exponential moving average of training load
+- **TSB (Form)**: CTL - ATL (race readiness: +10 to +25)
 
 ### Training Load
 - **Cardio Load**: Cardiovascular stress from training

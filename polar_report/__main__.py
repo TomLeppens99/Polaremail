@@ -216,11 +216,14 @@ def cmd_status(args):
     print(f"  Polar User ID: {Config.POLAR_USER_ID or 'Not set'}")
     print(f"  Webhook URL: {Config.WEBHOOK_URL or 'Not configured'}")
     print(f"  Email: {'Configured' if Config.is_email_configured() else 'Not configured'}")
+    print(f"  Weather API: {'Configured' if Config.is_weather_configured() else 'Not configured'}")
 
     # Schedule
     print("\n[Schedule]")
     print(f"  Report Day: {Config.REPORT_DAY}")
     print(f"  Report Time: {Config.REPORT_TIME}")
+    print(f"  Digest Day: {Config.DIGEST_DAY}")
+    print(f"  Digest Time: {Config.DIGEST_TIME}")
     print(f"  Timezone: {Config.TIMEZONE}")
 
     # Database status
@@ -247,6 +250,82 @@ def cmd_status(args):
         print(f"  {next_time.strftime('%A, %B %d, %Y at %H:%M %Z')}")
 
 
+def cmd_digest(args):
+    """Generate and optionally send the health digest."""
+    from .health_digest_report import generate_health_digest, HealthDigestReportGenerator
+    from .email_sender import EmailSender
+    from .models import init_db
+
+    if not Config.POLAR_USER_ID:
+        print("Error: No Polar user ID configured")
+        print("Run: python -m polar_report auth")
+        sys.exit(1)
+
+    init_db()
+
+    # Parse week start if provided
+    week_start = None
+    if args.week:
+        try:
+            week_start = datetime.strptime(args.week, '%Y-%m-%d').date()
+        except ValueError:
+            print(f"Invalid date format: {args.week}")
+            print("Use YYYY-MM-DD format")
+            sys.exit(1)
+
+    print("\nGenerating Health Digest...")
+
+    # Generate digest
+    subject, html, plain_text, report = generate_health_digest(
+        week_start=week_start,
+        save_to_file=args.save
+    )
+
+    print(f"\nHealth Digest: {report.week_start} to {report.week_end}")
+
+    # Print key metrics
+    if report.acwr:
+        status_icon = "✓" if report.acwr.status == "optimal" else "⚠"
+        print(f"  ACWR: {report.acwr.acwr} ({report.acwr.status}) {status_icon}")
+
+    if report.hrv_quadrant:
+        print(f"  HRV: {report.hrv_quadrant.current_mean:.1f}ms ({report.hrv_quadrant.quadrant})")
+
+    if report.performance_management:
+        print(f"  Form (TSB): {report.performance_management.form_tsb:.1f} ({report.performance_management.form_status})")
+
+    if report.sleep_architecture:
+        print(f"  Sleep: {report.sleep_architecture.avg_duration}")
+
+    if report.early_warning and report.early_warning.warnings:
+        print(f"\n  ⚠️  Warnings ({len(report.early_warning.warnings)}):")
+        for w in report.early_warning.warnings[:3]:
+            print(f"      - {w.get('message', 'Warning')}")
+
+    if report.insight_of_week:
+        print(f"\n  💡 Insight: {report.insight_of_week}")
+
+    if args.save:
+        generator = HealthDigestReportGenerator()
+        filepath = generator.save_report_to_file(report)
+        print(f"\nDigest saved to: {filepath}")
+
+    if args.send:
+        print(f"\nSending digest to {args.recipient or Config.EMAIL_RECIPIENT}...")
+        sender = EmailSender()
+        success = sender.send_email(
+            recipient=args.recipient or Config.EMAIL_RECIPIENT,
+            subject=subject,
+            html_content=html,
+            plain_text=plain_text
+        )
+        if success:
+            print("Email sent successfully!")
+        else:
+            print("Failed to send email")
+            sys.exit(1)
+
+
 def main():
     """Main CLI entry point."""
     parser = argparse.ArgumentParser(
@@ -258,6 +337,8 @@ Examples:
   python -m polar_report sync              # Sync data from Polar
   python -m polar_report report --save     # Generate and save report
   python -m polar_report report --send     # Generate and email report
+  python -m polar_report digest --save     # Generate health digest
+  python -m polar_report digest --send     # Generate and email health digest
   python -m polar_report schedule          # Start scheduled jobs
   python -m polar_report status            # Show system status
         """
@@ -293,6 +374,13 @@ Examples:
     report_parser.add_argument('--send', action='store_true', help='Send via email')
     report_parser.add_argument('--recipient', help='Email recipient (overrides config)')
 
+    # digest command
+    digest_parser = subparsers.add_parser('digest', help='Generate health digest')
+    digest_parser.add_argument('--week', help='Week start date (YYYY-MM-DD)')
+    digest_parser.add_argument('--save', action='store_true', help='Save HTML to file')
+    digest_parser.add_argument('--send', action='store_true', help='Send via email')
+    digest_parser.add_argument('--recipient', help='Email recipient (overrides config)')
+
     # schedule command
     schedule_parser = subparsers.add_parser('schedule', help='Run scheduled jobs')
     schedule_parser.add_argument('--next', action='store_true', help='Show next scheduled time')
@@ -322,6 +410,8 @@ Examples:
         cmd_sync(args)
     elif args.command == 'report':
         cmd_report(args)
+    elif args.command == 'digest':
+        cmd_digest(args)
     elif args.command == 'schedule':
         cmd_schedule(args)
     elif args.command == 'test-email':
