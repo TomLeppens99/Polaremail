@@ -61,11 +61,11 @@
                                                     <div style="font-size: 14px; font-weight: 600; color: {% if hrv_quadrant.quadrant == 'coping_well' %}#3fb950{% elif hrv_quadrant.quadrant == 'adapting' %}#58a6ff{% elif hrv_quadrant.quadrant == 'fatigued' %}#d29922{% else %}#f85149{% endif %};">
                                                         {% if hrv_quadrant.quadrant == 'coping_well' %}Coping{% elif hrv_quadrant.quadrant == 'adapting' %}Adapting{% elif hrv_quadrant.quadrant == 'fatigued' %}Fatigued{% else %}Alert{% endif %}
                                                     </div>
-                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">HRV Status</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">HRV</div>
                                                     <div style="font-size: 10px; color: #6e7681; margin-top: 2px;">{{ hrv_quadrant.current_mean|round(0)|int }}ms</div>
                                                     {% else %}
                                                     <div style="font-size: 14px; color: #6e7681;">-</div>
-                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">HRV Status</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">HRV</div>
                                                     {% endif %}
                                                 </td>
                                             </tr>
@@ -81,11 +81,11 @@
                                                     <div style="font-size: 24px; font-weight: 700; color: {% if performance_management.form_tsb >= 10 %}#3fb950{% elif performance_management.form_tsb >= 0 %}#58a6ff{% elif performance_management.form_tsb >= -10 %}#d29922{% else %}#f85149{% endif %};">
                                                         {{ performance_management.form_tsb|round(0)|int }}
                                                     </div>
-                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">Form (TSB)</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">Form</div>
                                                     <div style="font-size: 10px; color: #6e7681; margin-top: 2px;">{{ performance_management.form_status|replace('_', ' ')|title }}</div>
                                                     {% else %}
                                                     <div style="font-size: 24px; color: #6e7681;">-</div>
-                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">Form (TSB)</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">Form</div>
                                                     {% endif %}
                                                 </td>
                                             </tr>
@@ -331,7 +331,7 @@
                                 <tr>
                                     <td style="padding: 20px;">
                                         <h2 style="font-size: 16px; font-weight: 600; color: #e6edf3; margin: 0 0 16px 0;">
-                                            📈 Performance Management Chart
+                                            📈 Performance Management
                                         </h2>
                                         
                                         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
