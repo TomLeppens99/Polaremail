@@ -682,7 +682,7 @@
         {% if training.best_session %}
         <div class="section">
             <h2 class="section-title">
-                <span class="icon">&#127942;</span>
+                <span class="icon" aria-hidden="true">&#127942;</span>
                 Best Session
             </h2>
             {% set best_session = training.best_session %}
@@ -730,7 +730,7 @@
         {% if sleep.best_night_date or sleep.worst_night_date %}
         <div class="section">
             <h2 class="section-title">
-                <span class="icon">&#128716;</span>
+                <span class="icon" aria-hidden="true">&#128716;</span>
                 Sleep Insights
             </h2>
             <div class="insight-grid">
@@ -756,7 +756,7 @@
         {% if recovery.best_day_date or recovery.worst_day_date or recovery.low_recharge_days %}
         <div class="section">
             <h2 class="section-title">
-                <span class="icon">&#128153;</span>
+                <span class="icon" aria-hidden="true">&#128153;</span>
                 Recovery Insights
             </h2>
             <div class="insight-grid">
@@ -779,7 +779,7 @@
             <div class="insight-list">
                 Low recharge days:
                 {% for day in recovery.low_recharge_days[:3] %}
-                    {{ day.strftime('%a') }}{% if not loop.last %}, {% endif %}
+                    {{ day.strftime('%A') }}{% if not loop.last %}, {% endif %}
                 {% endfor %}
                 {% if recovery.low_recharge_days|length > 3 %}
                     +{{ recovery.low_recharge_days|length - 3 }} more

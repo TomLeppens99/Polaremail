@@ -144,17 +144,17 @@ class ReportGenerator:
         if report.training.best_session:
             best_session = report.training.best_session
             sport = best_session.sport.replace('_', ' ').title() if best_session.sport else "Session"
-            duration = format_duration(best_session.duration_seconds or 0)
+            details = format_duration(best_session.duration_seconds or 0)
             if best_session.distance_meters:
-                duration += f" | {format_distance(best_session.distance_meters)}"
+                details += f" • {format_distance(best_session.distance_meters)}"
             if best_session.calories:
-                duration += f" | {best_session.calories:,} kcal"
+                details += f" • {best_session.calories:,} kcal"
             lines.extend([
                 "",
                 "=" * 50,
                 "BEST SESSION",
                 "=" * 50,
-                f"{sport}: {duration}"
+                f"{sport}: {details}"
             ])
 
         if report.sleep.best_night_date or report.sleep.worst_night_date:
