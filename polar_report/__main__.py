@@ -103,10 +103,8 @@ def cmd_sync(args):
 def cmd_report(args):
     """Generate and optionally send the weekly report."""
     from .report import generate_weekly_report, ReportGenerator
-    from .aggregator import WeeklyAggregator
     from .email_sender import send_weekly_report
     from .models import init_db
-    from datetime import date
 
     if not Config.POLAR_USER_ID:
         print("Error: No Polar user ID configured")
@@ -245,7 +243,7 @@ def cmd_status(args):
     if Config.POLAR_USER_ID:
         from .scheduler import get_next_report_time
         next_time = get_next_report_time()
-        print(f"\n[Next Report]")
+        print("\n[Next Report]")
         print(f"  {next_time.strftime('%A, %B %d, %Y at %H:%M %Z')}")
 
 

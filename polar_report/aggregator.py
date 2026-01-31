@@ -4,7 +4,7 @@ Calculates metrics, comparisons, and generates insights from stored data.
 """
 
 from dataclasses import dataclass, field
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from typing import List, Dict, Optional, Tuple
 from collections import defaultdict
 import statistics

@@ -5,7 +5,6 @@ Handles authorization flow, token management, and user registration.
 
 import base64
 import logging
-import os
 from urllib.parse import urlencode
 from typing import Optional, Tuple
 
