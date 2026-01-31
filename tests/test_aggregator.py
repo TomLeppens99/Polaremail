@@ -1,8 +1,6 @@
 """Tests for data aggregation module."""
 
-import pytest
-from datetime import date, timedelta
-from unittest.mock import MagicMock
+from datetime import date
 
 from polar_report.aggregator import (
     WeeklyAggregator,

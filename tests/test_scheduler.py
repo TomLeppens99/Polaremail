@@ -1,6 +1,5 @@
 """Tests for scheduler module."""
 
-import pytest
 from datetime import datetime
 import pytz
 

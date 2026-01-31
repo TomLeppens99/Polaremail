@@ -1,6 +1,5 @@
 """Tests for Polar API module."""
 
-import pytest
 from polar_report.polar_api import PolarAPI
 
 

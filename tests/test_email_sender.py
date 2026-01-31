@@ -1,6 +1,5 @@
 """Tests for email sender module."""
 
-import pytest
 
 
 class TestEmailSender:
@@ -40,7 +39,9 @@ class TestEmailSender:
         )
         
         # If we get here without exception, the test passes
-        assert 'smtp.gmail.com' in html_content or Config.EMAIL_SMTP_SERVER in html_content
+        # Verify the HTML was generated with the configuration values
+        assert "SMTP Server:" in html_content
+        assert str(Config.EMAIL_SMTP_PORT) in html_content
 
     def test_email_sender_init(self):
         """Test EmailSender initialization."""

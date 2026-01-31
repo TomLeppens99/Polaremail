@@ -3,7 +3,7 @@ SQLAlchemy database models for Polar fitness data storage.
 Designed to store webhook payloads and API responses for weekly report generation.
 """
 
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 
 from sqlalchemy import (
     create_engine, Column, Integer, String, Float, DateTime, Date,
@@ -341,7 +341,6 @@ def drop_db():
 def get_exercises_in_range(session, user_id: str, start_date: date, end_date: date) -> list:
     """Get all exercises within a date range."""
     from sqlalchemy import and_
-    from datetime import timedelta
     # Use end_date + 1 day for inclusive end date range
     end_datetime = datetime.combine(end_date + timedelta(days=1), datetime.min.time())
     return session.query(Exercise).filter(
