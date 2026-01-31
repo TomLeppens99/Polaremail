@@ -452,12 +452,16 @@ class HealthDigestCalculator:
         except statistics.StatisticsError:
             std_dev = 0
 
+        # Calculate monotony (mean / std_dev)
+        # When std_dev is 0 with positive load, this represents extreme monotony
+        MAX_MONOTONY = 99.99  # Cap to avoid infinity issues
         if std_dev > 0:
             monotony = mean_load / std_dev
         else:
-            monotony = float('inf') if mean_load > 0 else 0
+            monotony = MAX_MONOTONY if mean_load > 0 else 0
 
-        strain = weekly_total * monotony if monotony != float('inf') else 0
+        # Calculate strain (high strain with high monotony indicates risk)
+        strain = weekly_total * monotony
 
         # Determine status
         if monotony < 1.5:
@@ -471,7 +475,7 @@ class HealthDigestCalculator:
             interpretation = "High illness/injury risk - add more variety"
 
         return MonotonyStrainResult(
-            monotony=round(monotony, 2) if monotony != float('inf') else 99.99,
+            monotony=round(monotony, 2) if monotony < MAX_MONOTONY else MAX_MONOTONY,
             monotony_status=status,
             strain=round(strain, 0),
             weekly_total=round(weekly_total, 1),

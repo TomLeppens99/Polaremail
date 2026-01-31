@@ -628,9 +628,9 @@ def generate_digest_charts(digest_report) -> Dict[str, str]:
     # PMC Chart
     if digest_report.performance_management and digest_report.performance_management.series:
         series = digest_report.performance_management.series
-        dates = [f"W{i+1}" for i in range(len(series.get("ctl", [])))]
+        dates = [f"D{i+1}" for i in range(len(series.get("ctl", [])))]
         charts["pmc_chart"] = generator.generate_pmc_chart(
-            dates[-42:],  # Last 6 weeks
+            dates[-42:],  # Last 42 days (6 weeks of daily data)
             series.get("ctl", [])[-42:],
             series.get("atl", [])[-42:],
             series.get("tsb", [])[-42:]

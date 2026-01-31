@@ -5,6 +5,7 @@ Uses OpenWeatherMap API for historical weather data at exercise locations.
 """
 
 import logging
+from collections import defaultdict
 from datetime import datetime
 from typing import Dict, Optional, List
 
@@ -249,7 +250,6 @@ class WeatherAPI:
         min_temp, max_temp = optimal_temp_range
 
         # Group by date and find midday readings
-        from collections import defaultdict
         by_date = defaultdict(list)
 
         for item in forecast:
@@ -264,7 +264,6 @@ class WeatherAPI:
             temp = midday.get("temp_c", 0)
 
             if min_temp <= temp <= max_temp:
-                from datetime import datetime
                 try:
                     date_obj = datetime.strptime(date_str, "%Y-%m-%d")
                     optimal_days.append({
