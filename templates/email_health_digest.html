@@ -11,41 +11,41 @@
     </style>
     <![endif]-->
 </head>
-<body style="margin: 0; padding: 0; background-color: #f5f5f7; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;">
+<body style="margin: 0; padding: 0; background-color: #0d1117; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;">
     <!-- Main Container -->
-    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f5f5f7;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #0d1117;">
         <tr>
             <td align="center" style="padding: 20px 10px;">
                 <!-- Email Content Container -->
-                <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border-radius: 8px; overflow: hidden; max-width: 600px;">
+                <table role="presentation" width="600" cellspacing="0" cellpadding="0" border="0" style="background-color: #161b22; border-radius: 8px; overflow: hidden; max-width: 600px; border: 1px solid #21262d;">
                     
                     <!-- Header -->
                     <tr>
-                        <td style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 30px 25px; text-align: center;">
-                            <h1 style="color: #ffffff; font-size: 24px; font-weight: 600; margin: 0 0 8px 0;">Weekly Health Digest</h1>
-                            <p style="color: rgba(255,255,255,0.8); font-size: 14px; margin: 0;">{{ week_start.strftime('%B %d') }} - {{ week_end.strftime('%B %d, %Y') }}</p>
+                        <td style="background: linear-gradient(135deg, #0d1117 0%, #161b22 100%); padding: 32px 24px; text-align: center; border-bottom: 1px solid #21262d;">
+                            <h1 style="color: #e6edf3; font-size: 24px; font-weight: 600; margin: 0 0 8px 0; letter-spacing: -0.02em;">Weekly Health Digest</h1>
+                            <p style="color: #8b949e; font-size: 14px; margin: 0;">{{ week_start.strftime('%B %d') }} - {{ week_end.strftime('%B %d, %Y') }}</p>
                         </td>
                     </tr>
 
-                    <!-- Quick Stats Cards -->
+                    <!-- Quick Stats Cards / Hero Metrics -->
                     <tr>
-                        <td style="padding: 25px;">
+                        <td style="padding: 24px;">
                             <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                                 <tr>
                                     <!-- ACWR Card -->
-                                    <td width="25%" style="text-align: center; padding: 10px 5px;">
-                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f8f9fa; border-radius: 8px;">
+                                    <td width="25%" style="text-align: center; padding: 8px 4px;">
+                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #21262d; border-radius: 8px; border: 1px solid #21262d;">
                                             <tr>
-                                                <td style="padding: 15px 10px;">
+                                                <td style="padding: 16px 10px;">
                                                     {% if acwr %}
-                                                    <div style="font-size: 24px; font-weight: 700; color: {% if acwr.status == 'optimal' %}#28a745{% elif acwr.status == 'caution' %}#ffc107{% elif acwr.status == 'danger' %}#dc3545{% else %}#6c757d{% endif %};">
+                                                    <div style="font-size: 24px; font-weight: 700; color: {% if acwr.status == 'optimal' %}#3fb950{% elif acwr.status == 'caution' %}#d29922{% elif acwr.status == 'danger' %}#f85149{% else %}#8b949e{% endif %};">
                                                         {{ acwr.acwr }}
                                                     </div>
-                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">ACWR</div>
-                                                    <div style="font-size: 10px; color: #888; margin-top: 2px;">{{ acwr.status|title }}</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">ACWR</div>
+                                                    <div style="font-size: 10px; color: #6e7681; margin-top: 2px;">{{ acwr.status|title }}</div>
                                                     {% else %}
-                                                    <div style="font-size: 24px; color: #ccc;">-</div>
-                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">ACWR</div>
+                                                    <div style="font-size: 24px; color: #6e7681;">-</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">ACWR</div>
                                                     {% endif %}
                                                 </td>
                                             </tr>
@@ -53,19 +53,19 @@
                                     </td>
                                     
                                     <!-- HRV Card -->
-                                    <td width="25%" style="text-align: center; padding: 10px 5px;">
-                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f8f9fa; border-radius: 8px;">
+                                    <td width="25%" style="text-align: center; padding: 8px 4px;">
+                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #21262d; border-radius: 8px; border: 1px solid #21262d;">
                                             <tr>
-                                                <td style="padding: 15px 10px;">
+                                                <td style="padding: 16px 10px;">
                                                     {% if hrv_quadrant %}
-                                                    <div style="font-size: 14px; font-weight: 600; color: {% if hrv_quadrant.quadrant == 'coping_well' %}#28a745{% elif hrv_quadrant.quadrant == 'adapting' %}#17a2b8{% elif hrv_quadrant.quadrant == 'fatigued' %}#ffc107{% else %}#dc3545{% endif %};">
+                                                    <div style="font-size: 14px; font-weight: 600; color: {% if hrv_quadrant.quadrant == 'coping_well' %}#3fb950{% elif hrv_quadrant.quadrant == 'adapting' %}#58a6ff{% elif hrv_quadrant.quadrant == 'fatigued' %}#d29922{% else %}#f85149{% endif %};">
                                                         {% if hrv_quadrant.quadrant == 'coping_well' %}Coping{% elif hrv_quadrant.quadrant == 'adapting' %}Adapting{% elif hrv_quadrant.quadrant == 'fatigued' %}Fatigued{% else %}Alert{% endif %}
                                                     </div>
-                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">HRV</div>
-                                                    <div style="font-size: 10px; color: #888; margin-top: 2px;">{{ hrv_quadrant.current_mean|round(0)|int }}ms</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">HRV Status</div>
+                                                    <div style="font-size: 10px; color: #6e7681; margin-top: 2px;">{{ hrv_quadrant.current_mean|round(0)|int }}ms</div>
                                                     {% else %}
-                                                    <div style="font-size: 14px; color: #ccc;">-</div>
-                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">HRV</div>
+                                                    <div style="font-size: 14px; color: #6e7681;">-</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">HRV Status</div>
                                                     {% endif %}
                                                 </td>
                                             </tr>
@@ -73,19 +73,19 @@
                                     </td>
                                     
                                     <!-- Form Card -->
-                                    <td width="25%" style="text-align: center; padding: 10px 5px;">
-                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f8f9fa; border-radius: 8px;">
+                                    <td width="25%" style="text-align: center; padding: 8px 4px;">
+                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #21262d; border-radius: 8px; border: 1px solid #21262d;">
                                             <tr>
-                                                <td style="padding: 15px 10px;">
+                                                <td style="padding: 16px 10px;">
                                                     {% if performance_management %}
-                                                    <div style="font-size: 24px; font-weight: 700; color: {% if performance_management.form_tsb >= 10 %}#28a745{% elif performance_management.form_tsb >= 0 %}#17a2b8{% elif performance_management.form_tsb >= -10 %}#ffc107{% else %}#dc3545{% endif %};">
+                                                    <div style="font-size: 24px; font-weight: 700; color: {% if performance_management.form_tsb >= 10 %}#3fb950{% elif performance_management.form_tsb >= 0 %}#58a6ff{% elif performance_management.form_tsb >= -10 %}#d29922{% else %}#f85149{% endif %};">
                                                         {{ performance_management.form_tsb|round(0)|int }}
                                                     </div>
-                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">Form</div>
-                                                    <div style="font-size: 10px; color: #888; margin-top: 2px;">{{ performance_management.form_status|replace('_', ' ')|title }}</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">Form (TSB)</div>
+                                                    <div style="font-size: 10px; color: #6e7681; margin-top: 2px;">{{ performance_management.form_status|replace('_', ' ')|title }}</div>
                                                     {% else %}
-                                                    <div style="font-size: 24px; color: #ccc;">-</div>
-                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">Form</div>
+                                                    <div style="font-size: 24px; color: #6e7681;">-</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">Form (TSB)</div>
                                                     {% endif %}
                                                 </td>
                                             </tr>
@@ -93,20 +93,20 @@
                                     </td>
                                     
                                     <!-- Alerts Card -->
-                                    <td width="25%" style="text-align: center; padding: 10px 5px;">
-                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f8f9fa; border-radius: 8px;">
+                                    <td width="25%" style="text-align: center; padding: 8px 4px;">
+                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #21262d; border-radius: 8px; border: 1px solid #21262d;">
                                             <tr>
-                                                <td style="padding: 15px 10px;">
+                                                <td style="padding: 16px 10px;">
                                                     {% if early_warning and early_warning.warnings %}
-                                                    <div style="font-size: 24px; font-weight: 700; color: #ffc107;">
+                                                    <div style="font-size: 24px; font-weight: 700; color: #d29922;">
                                                         ⚠️{{ early_warning.warnings|length }}
                                                     </div>
                                                     {% else %}
-                                                    <div style="font-size: 24px; font-weight: 700; color: #28a745;">
+                                                    <div style="font-size: 24px; font-weight: 700; color: #3fb950;">
                                                         ✓
                                                     </div>
                                                     {% endif %}
-                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">Alerts</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">Alerts</div>
                                                 </td>
                                             </tr>
                                         </table>
@@ -118,32 +118,32 @@
 
                     <!-- Training Load Section -->
                     <tr>
-                        <td style="padding: 0 25px 25px 25px;">
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #eee; border-radius: 8px;">
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #21262d; border-radius: 8px; background-color: #161b22;">
                                 <tr>
                                     <td style="padding: 20px;">
-                                        <h2 style="font-size: 16px; font-weight: 600; color: #1a1a2e; margin: 0 0 15px 0;">
+                                        <h2 style="font-size: 16px; font-weight: 600; color: #e6edf3; margin: 0 0 16px 0;">
                                             📊 Training Load
                                         </h2>
                                         
                                         {% if acwr %}
                                         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                                             <tr>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
-                                                    <span style="color: #555;">ACWR</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d;">
+                                                    <span style="color: #8b949e; font-size: 14px;">ACWR</span>
                                                 </td>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; text-align: right;">
-                                                    <strong>{{ acwr.acwr }}</strong>
-                                                    <span style="color: {% if acwr.status == 'optimal' %}#28a745{% elif acwr.status == 'caution' %}#ffc107{% elif acwr.status == 'danger' %}#dc3545{% else %}#6c757d{% endif %}; font-size: 12px; margin-left: 5px;">({{ acwr.status }})</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d; text-align: right;">
+                                                    <strong style="color: #e6edf3; font-size: 14px;">{{ acwr.acwr }}</strong>
+                                                    <span style="color: {% if acwr.status == 'optimal' %}#3fb950{% elif acwr.status == 'caution' %}#d29922{% elif acwr.status == 'danger' %}#f85149{% else %}#8b949e{% endif %}; font-size: 12px; margin-left: 5px;">({{ acwr.status }})</span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
-                                                    <span style="color: #555;">Weekly Load</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d;">
+                                                    <span style="color: #8b949e; font-size: 14px;">Weekly Load</span>
                                                 </td>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; text-align: right;">
-                                                    <strong>{{ acwr.acute_load|round(0)|int }}</strong> TRIMP
-                                                    <span style="color: {% if acwr.trend == 'increasing' %}#28a745{% elif acwr.trend == 'decreasing' %}#dc3545{% else %}#6c757d{% endif %}; font-size: 12px; margin-left: 5px;">
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d; text-align: right;">
+                                                    <strong style="color: #e6edf3; font-size: 14px;">{{ acwr.acute_load|round(0)|int }}</strong> <span style="color: #8b949e; font-size: 12px;">TRIMP</span>
+                                                    <span style="color: {% if acwr.trend == 'increasing' %}#3fb950{% elif acwr.trend == 'decreasing' %}#f85149{% else %}#8b949e{% endif %}; font-size: 12px; margin-left: 5px;">
                                                         {% if acwr.trend == 'increasing' %}↑{% elif acwr.trend == 'decreasing' %}↓{% else %}→{% endif %}
                                                     </span>
                                                 </td>
@@ -152,22 +152,22 @@
                                         {% endif %}
                                         
                                         {% if monotony_strain %}
-                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-top: 10px;">
+                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-top: 12px;">
                                             <tr>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
-                                                    <span style="color: #555;">Monotony</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d;">
+                                                    <span style="color: #8b949e; font-size: 14px;">Monotony</span>
                                                 </td>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; text-align: right;">
-                                                    <strong>{{ monotony_strain.monotony }}</strong>
-                                                    <span style="color: {% if monotony_strain.monotony_status == 'good' %}#28a745{% elif monotony_strain.monotony_status == 'elevated' %}#ffc107{% else %}#dc3545{% endif %}; font-size: 12px; margin-left: 5px;">({{ monotony_strain.monotony_status }})</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d; text-align: right;">
+                                                    <strong style="color: #e6edf3; font-size: 14px;">{{ monotony_strain.monotony }}</strong>
+                                                    <span style="color: {% if monotony_strain.monotony_status == 'good' %}#3fb950{% elif monotony_strain.monotony_status == 'elevated' %}#d29922{% else %}#f85149{% endif %}; font-size: 12px; margin-left: 5px;">({{ monotony_strain.monotony_status }})</span>
                                                 </td>
                                             </tr>
                                         </table>
-                                        <p style="font-size: 13px; color: #666; margin: 10px 0 0 0;">{{ monotony_strain.interpretation }}</p>
+                                        <p style="font-size: 13px; color: #8b949e; margin: 12px 0 0 0; line-height: 1.5;">{{ monotony_strain.interpretation }}</p>
                                         {% endif %}
                                         
                                         {% if not acwr and not monotony_strain %}
-                                        <p style="color: #888; font-size: 14px;">No training load data available this week.</p>
+                                        <p style="color: #6e7681; font-size: 14px;">No training load data available this week.</p>
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -177,49 +177,49 @@
 
                     <!-- Recovery Status Section -->
                     <tr>
-                        <td style="padding: 0 25px 25px 25px;">
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #eee; border-radius: 8px;">
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #21262d; border-radius: 8px; background-color: #161b22;">
                                 <tr>
                                     <td style="padding: 20px;">
-                                        <h2 style="font-size: 16px; font-weight: 600; color: #1a1a2e; margin: 0 0 15px 0;">
+                                        <h2 style="font-size: 16px; font-weight: 600; color: #e6edf3; margin: 0 0 16px 0;">
                                             😴 Recovery Status
                                         </h2>
                                         
                                         {% if hrv_quadrant %}
                                         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                                             <tr>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
-                                                    <span style="color: #555;">HRV Mean</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d;">
+                                                    <span style="color: #8b949e; font-size: 14px;">HRV Mean</span>
                                                 </td>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; text-align: right;">
-                                                    <strong>{{ hrv_quadrant.current_mean|round(1) }}ms</strong>
-                                                    <span style="color: {% if hrv_quadrant.mean_deviation_percent >= 0 %}#28a745{% else %}#dc3545{% endif %}; font-size: 12px; margin-left: 5px;">
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d; text-align: right;">
+                                                    <strong style="color: #e6edf3; font-size: 14px;">{{ hrv_quadrant.current_mean|round(1) }}ms</strong>
+                                                    <span style="color: {% if hrv_quadrant.mean_deviation_percent >= 0 %}#3fb950{% else %}#f85149{% endif %}; font-size: 12px; margin-left: 5px;">
                                                         ({{ hrv_quadrant.mean_deviation_percent|round(1) }}% vs baseline)
                                                     </span>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
-                                                    <span style="color: #555;">HRV CV</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d;">
+                                                    <span style="color: #8b949e; font-size: 14px;">HRV CV</span>
                                                 </td>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; text-align: right;">
-                                                    <strong>{{ hrv_quadrant.current_cv|round(1) }}%</strong>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d; text-align: right;">
+                                                    <strong style="color: #e6edf3; font-size: 14px;">{{ hrv_quadrant.current_cv|round(1) }}%</strong>
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td style="padding: 8px 0;">
-                                                    <span style="color: #555;">Quadrant</span>
+                                                    <span style="color: #8b949e; font-size: 14px;">Quadrant</span>
                                                 </td>
                                                 <td style="padding: 8px 0; text-align: right;">
-                                                    <span style="display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; background-color: {% if hrv_quadrant.quadrant == 'coping_well' %}#d4edda{% elif hrv_quadrant.quadrant == 'adapting' %}#d1ecf1{% elif hrv_quadrant.quadrant == 'fatigued' %}#fff3cd{% else %}#f8d7da{% endif %}; color: {% if hrv_quadrant.quadrant == 'coping_well' %}#155724{% elif hrv_quadrant.quadrant == 'adapting' %}#0c5460{% elif hrv_quadrant.quadrant == 'fatigued' %}#856404{% else %}#721c24{% endif %};">
+                                                    <span style="display: inline-block; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; background-color: {% if hrv_quadrant.quadrant == 'coping_well' %}#238636{% elif hrv_quadrant.quadrant == 'adapting' %}#1f6feb{% elif hrv_quadrant.quadrant == 'fatigued' %}#9a6700{% else %}#a40e26{% endif %}; color: {% if hrv_quadrant.quadrant == 'coping_well' %}#aff5b4{% elif hrv_quadrant.quadrant == 'adapting' %}#a5d6ff{% elif hrv_quadrant.quadrant == 'fatigued' %}#ffd8b5{% else %}#ffc1cc{% endif %};">
                                                         {{ hrv_quadrant.quadrant|replace('_', ' ')|title }}
                                                     </span>
                                                 </td>
                                             </tr>
                                         </table>
-                                        <p style="font-size: 13px; color: #666; margin: 10px 0 0 0;">{{ hrv_quadrant.interpretation }}</p>
+                                        <p style="font-size: 13px; color: #8b949e; margin: 12px 0 0 0; line-height: 1.5;">{{ hrv_quadrant.interpretation }}</p>
                                         {% else %}
-                                        <p style="color: #888; font-size: 14px;">No HRV data available this week.</p>
+                                        <p style="color: #6e7681; font-size: 14px;">No HRV data available this week.</p>
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -229,63 +229,63 @@
 
                     <!-- Sleep Section -->
                     <tr>
-                        <td style="padding: 0 25px 25px 25px;">
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #eee; border-radius: 8px;">
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #21262d; border-radius: 8px; background-color: #161b22;">
                                 <tr>
                                     <td style="padding: 20px;">
-                                        <h2 style="font-size: 16px; font-weight: 600; color: #1a1a2e; margin: 0 0 15px 0;">
+                                        <h2 style="font-size: 16px; font-weight: 600; color: #e6edf3; margin: 0 0 16px 0;">
                                             🛌 Sleep Analysis
                                         </h2>
                                         
                                         {% if sleep_architecture %}
                                         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                                             <tr>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
-                                                    <span style="color: #555;">Avg Duration</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d;">
+                                                    <span style="color: #8b949e; font-size: 14px;">Avg Duration</span>
                                                 </td>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; text-align: right;">
-                                                    <strong>{{ sleep_architecture.avg_duration }}</strong>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
-                                                    <span style="color: #555;">Deep Sleep</span>
-                                                </td>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; text-align: right;">
-                                                    <strong>{{ sleep_architecture.composition.deep_percent|round(1) }}%</strong>
-                                                    <span style="color: {% if sleep_architecture.composition.deep_status == 'good' %}#28a745{% else %}#ffc107{% endif %}; font-size: 12px; margin-left: 5px;">({{ sleep_architecture.composition.deep_status }})</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d; text-align: right;">
+                                                    <strong style="color: #e6edf3; font-size: 14px;">{{ sleep_architecture.avg_duration }}</strong>
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0;">
-                                                    <span style="color: #555;">REM Sleep</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d;">
+                                                    <span style="color: #8b949e; font-size: 14px;">Deep Sleep</span>
                                                 </td>
-                                                <td style="padding: 8px 0; border-bottom: 1px solid #f0f0f0; text-align: right;">
-                                                    <strong>{{ sleep_architecture.composition.rem_percent|round(1) }}%</strong>
-                                                    <span style="color: {% if sleep_architecture.composition.rem_status == 'good' %}#28a745{% else %}#ffc107{% endif %}; font-size: 12px; margin-left: 5px;">({{ sleep_architecture.composition.rem_status }})</span>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d; text-align: right;">
+                                                    <strong style="color: #e6edf3; font-size: 14px;">{{ sleep_architecture.composition.deep_percent|round(1) }}%</strong>
+                                                    <span style="color: {% if sleep_architecture.composition.deep_status == 'good' %}#3fb950{% else %}#d29922{% endif %}; font-size: 12px; margin-left: 5px;">({{ sleep_architecture.composition.deep_status }})</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d;">
+                                                    <span style="color: #8b949e; font-size: 14px;">REM Sleep</span>
+                                                </td>
+                                                <td style="padding: 8px 0; border-bottom: 1px solid #21262d; text-align: right;">
+                                                    <strong style="color: #e6edf3; font-size: 14px;">{{ sleep_architecture.composition.rem_percent|round(1) }}%</strong>
+                                                    <span style="color: {% if sleep_architecture.composition.rem_status == 'good' %}#3fb950{% else %}#d29922{% endif %}; font-size: 12px; margin-left: 5px;">({{ sleep_architecture.composition.rem_status }})</span>
                                                 </td>
                                             </tr>
                                         </table>
-                                        <p style="font-size: 13px; color: #666; margin: 10px 0 0 0;">{{ sleep_architecture.interpretation }}</p>
+                                        <p style="font-size: 13px; color: #8b949e; margin: 12px 0 0 0; line-height: 1.5;">{{ sleep_architecture.interpretation }}</p>
                                         {% endif %}
                                         
                                         {% if sleep_debt %}
-                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #eee;">
+                                        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #21262d;">
                                             <tr>
                                                 <td style="padding: 8px 0;">
-                                                    <span style="color: #555;">Sleep Debt</span>
+                                                    <span style="color: #8b949e; font-size: 14px;">Sleep Debt</span>
                                                 </td>
                                                 <td style="padding: 8px 0; text-align: right;">
-                                                    <strong>{{ sleep_debt.recent_debt_hours }}h</strong>
-                                                    <span style="color: {% if sleep_debt.status == 'none' %}#28a745{% elif sleep_debt.status == 'mild' %}#17a2b8{% elif sleep_debt.status == 'moderate' %}#ffc107{% else %}#dc3545{% endif %}; font-size: 12px; margin-left: 5px;">({{ sleep_debt.status }})</span>
+                                                    <strong style="color: #e6edf3; font-size: 14px;">{{ sleep_debt.recent_debt_hours }}h</strong>
+                                                    <span style="color: {% if sleep_debt.status == 'none' %}#3fb950{% elif sleep_debt.status == 'mild' %}#58a6ff{% elif sleep_debt.status == 'moderate' %}#d29922{% else %}#f85149{% endif %}; font-size: 12px; margin-left: 5px;">({{ sleep_debt.status }})</span>
                                                 </td>
                                             </tr>
                                         </table>
-                                        <p style="font-size: 13px; color: #666; margin: 10px 0 0 0;">{{ sleep_debt.interpretation }}</p>
+                                        <p style="font-size: 13px; color: #8b949e; margin: 12px 0 0 0; line-height: 1.5;">{{ sleep_debt.interpretation }}</p>
                                         {% endif %}
                                         
                                         {% if not sleep_architecture and not sleep_debt %}
-                                        <p style="color: #888; font-size: 14px;">No sleep data available this week.</p>
+                                        <p style="color: #6e7681; font-size: 14px;">No sleep data available this week.</p>
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -293,29 +293,29 @@
                         </td>
                     </tr>
 
-                    <!-- Early Warnings Section -->
+                    <!-- Early Warnings Section / Alerts -->
                     {% if early_warning and early_warning.warnings %}
                     <tr>
-                        <td style="padding: 0 25px 25px 25px;">
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 2px solid #ffc107; border-radius: 8px; background-color: #fff8e1;">
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 2px solid #d29922; border-radius: 8px; background-color: #161b22;">
                                 <tr>
                                     <td style="padding: 20px;">
-                                        <h2 style="font-size: 16px; font-weight: 600; color: #856404; margin: 0 0 15px 0;">
+                                        <h2 style="font-size: 16px; font-weight: 600; color: #d29922; margin: 0 0 16px 0;">
                                             ⚠️ Early Warnings
                                         </h2>
                                         
                                         {% for warning in early_warning.warnings %}
-                                        <div style="background-color: #fff3cd; padding: 12px 15px; border-radius: 6px; margin-bottom: 10px; border-left: 4px solid #ffc107;">
-                                            <div style="font-weight: 600; color: #856404; font-size: 14px;">{{ warning.message }}</div>
+                                        <div style="background-color: #21262d; padding: 12px 16px; border-radius: 6px; margin-bottom: 12px; border-left: 4px solid #d29922;">
+                                            <div style="font-weight: 600; color: #e6edf3; font-size: 14px;">{{ warning.message }}</div>
                                             {% if warning.value and warning.baseline %}
-                                            <div style="font-size: 12px; color: #a07800; margin-top: 4px;">
+                                            <div style="font-size: 12px; color: #8b949e; margin-top: 4px;">
                                                 Current: {{ warning.value }} | Baseline: {{ warning.baseline }}
                                             </div>
                                             {% endif %}
                                         </div>
                                         {% endfor %}
                                         
-                                        <p style="font-size: 13px; color: #856404; margin: 10px 0 0 0; font-weight: 500;">{{ early_warning.recommendation }}</p>
+                                        <p style="font-size: 13px; color: #d29922; margin: 12px 0 0 0; font-weight: 500; line-height: 1.5;">{{ early_warning.recommendation }}</p>
                                     </td>
                                 </tr>
                             </table>
@@ -323,42 +323,42 @@
                     </tr>
                     {% endif %}
 
-                    <!-- Performance Management Section -->
+                    <!-- Performance Management Section / Performance Management Chart -->
                     {% if performance_management %}
                     <tr>
-                        <td style="padding: 0 25px 25px 25px;">
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #eee; border-radius: 8px;">
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #21262d; border-radius: 8px; background-color: #161b22;">
                                 <tr>
                                     <td style="padding: 20px;">
-                                        <h2 style="font-size: 16px; font-weight: 600; color: #1a1a2e; margin: 0 0 15px 0;">
-                                            📈 Performance Management
+                                        <h2 style="font-size: 16px; font-weight: 600; color: #e6edf3; margin: 0 0 16px 0;">
+                                            📈 Performance Management Chart
                                         </h2>
                                         
                                         <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0">
                                             <tr>
-                                                <td width="33%" style="text-align: center; padding: 10px;">
-                                                    <div style="font-size: 24px; font-weight: 700; color: #4285f4;">{{ performance_management.fitness_ctl|round(0)|int }}</div>
-                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">Fitness (CTL)</div>
+                                                <td width="33%" style="text-align: center; padding: 12px;">
+                                                    <div style="font-size: 24px; font-weight: 700; color: #58a6ff;">{{ performance_management.fitness_ctl|round(0)|int }}</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">Fitness (CTL)</div>
                                                 </td>
-                                                <td width="33%" style="text-align: center; padding: 10px;">
-                                                    <div style="font-size: 24px; font-weight: 700; color: #ea4335;">{{ performance_management.fatigue_atl|round(0)|int }}</div>
-                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">Fatigue (ATL)</div>
+                                                <td width="33%" style="text-align: center; padding: 12px;">
+                                                    <div style="font-size: 24px; font-weight: 700; color: #f85149;">{{ performance_management.fatigue_atl|round(0)|int }}</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">Fatigue (ATL)</div>
                                                 </td>
-                                                <td width="33%" style="text-align: center; padding: 10px;">
-                                                    <div style="font-size: 24px; font-weight: 700; color: #fbbc04;">{{ performance_management.form_tsb|round(0)|int }}</div>
-                                                    <div style="font-size: 11px; color: #666; margin-top: 4px;">Form (TSB)</div>
+                                                <td width="33%" style="text-align: center; padding: 12px;">
+                                                    <div style="font-size: 24px; font-weight: 700; color: #d29922;">{{ performance_management.form_tsb|round(0)|int }}</div>
+                                                    <div style="font-size: 11px; color: #8b949e; margin-top: 4px; font-weight: 500;">Form (TSB)</div>
                                                 </td>
                                             </tr>
                                         </table>
                                         
                                         {% if charts and charts.pmc_chart %}
-                                        <div style="margin-top: 15px; text-align: center;">
-                                            <img src="{{ charts.pmc_chart }}" alt="Performance Management Chart" style="max-width: 100%; height: auto; border-radius: 4px;">
+                                        <div style="margin-top: 16px; text-align: center;">
+                                            <img src="{{ charts.pmc_chart }}" alt="Performance Management Chart" style="max-width: 100%; height: auto; border-radius: 6px;">
                                         </div>
                                         {% endif %}
                                         
-                                        <p style="font-size: 13px; color: #666; margin: 15px 0 0 0;">{{ performance_management.interpretation }}</p>
-                                        <p style="font-size: 12px; color: #888; margin: 5px 0 0 0;">{{ performance_management.peak_prediction }}</p>
+                                        <p style="font-size: 13px; color: #8b949e; margin: 16px 0 0 0; line-height: 1.5;">{{ performance_management.interpretation }}</p>
+                                        <p style="font-size: 12px; color: #6e7681; margin: 8px 0 0 0; line-height: 1.5;">{{ performance_management.peak_prediction }}</p>
                                     </td>
                                 </tr>
                             </table>
@@ -366,23 +366,23 @@
                     </tr>
                     {% endif %}
 
-                    <!-- Time of Day Section -->
+                    <!-- Time of Day Section / Conditions & Optimization -->
                     {% if time_of_day and time_of_day.optimal_slot != 'unknown' %}
                     <tr>
-                        <td style="padding: 0 25px 25px 25px;">
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #eee; border-radius: 8px;">
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="border: 1px solid #21262d; border-radius: 8px; background-color: #161b22;">
                                 <tr>
                                     <td style="padding: 20px;">
-                                        <h2 style="font-size: 16px; font-weight: 600; color: #1a1a2e; margin: 0 0 15px 0;">
+                                        <h2 style="font-size: 16px; font-weight: 600; color: #e6edf3; margin: 0 0 16px 0;">
                                             🕐 Best Training Time
                                         </h2>
                                         
-                                        <div style="text-align: center; padding: 15px; background-color: #f8f9fa; border-radius: 8px;">
-                                            <div style="font-size: 18px; font-weight: 600; color: #28a745;">{{ time_of_day.optimal_time_range }}</div>
-                                            <div style="font-size: 12px; color: #666; margin-top: 5px;">{{ time_of_day.insight }}</div>
+                                        <div style="text-align: center; padding: 16px; background-color: #21262d; border-radius: 8px; border: 1px solid #21262d;">
+                                            <div style="font-size: 18px; font-weight: 600; color: #3fb950;">{{ time_of_day.optimal_time_range }}</div>
+                                            <div style="font-size: 12px; color: #8b949e; margin-top: 6px;">{{ time_of_day.insight }}</div>
                                         </div>
                                         
-                                        <p style="font-size: 13px; color: #666; margin: 15px 0 0 0;">💡 {{ time_of_day.this_week_suggestion }}</p>
+                                        <p style="font-size: 13px; color: #8b949e; margin: 16px 0 0 0; line-height: 1.5;">💡 {{ time_of_day.this_week_suggestion }}</p>
                                     </td>
                                 </tr>
                             </table>
@@ -393,14 +393,14 @@
                     <!-- Insight of the Week -->
                     {% if insight_of_week %}
                     <tr>
-                        <td style="padding: 0 25px 25px 25px;">
-                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 8px;">
+                        <td style="padding: 0 24px 24px 24px;">
+                            <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background: linear-gradient(135deg, #a371f7 0%, #8250df 100%); border-radius: 8px;">
                                 <tr>
                                     <td style="padding: 20px;">
-                                        <h2 style="font-size: 16px; font-weight: 600; color: #ffffff; margin: 0 0 10px 0;">
+                                        <h2 style="font-size: 16px; font-weight: 600; color: #ffffff; margin: 0 0 12px 0;">
                                             💡 Insight of the Week
                                         </h2>
-                                        <p style="font-size: 14px; color: rgba(255,255,255,0.9); margin: 0; line-height: 1.5;">
+                                        <p style="font-size: 14px; color: rgba(255,255,255,0.95); margin: 0; line-height: 1.6;">
                                             "{{ insight_of_week }}"
                                         </p>
                                     </td>
@@ -412,11 +412,11 @@
 
                     <!-- Footer -->
                     <tr>
-                        <td style="background-color: #f8f9fa; padding: 25px; text-align: center; border-top: 1px solid #eee;">
-                            <div style="margin-bottom: 15px;">
-                                <a href="https://flow.polar.com" style="color: #e63946; text-decoration: none; font-size: 14px;">View in Polar Flow</a>
+                        <td style="background-color: #161b22; padding: 24px; text-align: center; border-top: 1px solid #21262d;">
+                            <div style="margin-bottom: 16px;">
+                                <a href="https://flow.polar.com" style="color: #58a6ff; text-decoration: none; font-size: 14px; font-weight: 500;">View in Polar Flow</a>
                             </div>
-                            <div style="font-size: 12px; color: #888;">
+                            <div style="font-size: 12px; color: #6e7681;">
                                 Generated on {{ generation_time.strftime('%B %d, %Y at %H:%M') }}<br>
                                 Weekly Health Digest • Powered by Polar Data
                             </div>
