@@ -261,6 +261,47 @@
         .rem-icon { background-color: #d29922; }
         .light-icon { background-color: #3fb950; }
 
+        /* Insight cards */
+        .insight-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .insight-card {
+            background-color: #21262d;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #21262d;
+        }
+
+        .insight-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: #8b949e;
+            margin-bottom: 6px;
+        }
+
+        .insight-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #e6edf3;
+        }
+
+        .insight-subtitle {
+            font-size: 13px;
+            color: #8b949e;
+            margin-top: 4px;
+        }
+
+        .insight-list {
+            margin-top: 12px;
+            font-size: 13px;
+            color: #8b949e;
+        }
+
         /* Highlights section */
         .highlight {
             display: flex;
@@ -387,6 +428,10 @@
 
             .sleep-stage {
                 width: 45%;
+            }
+
+            .insight-grid {
+                grid-template-columns: 1fr;
             }
 
             .comparison-table th,
@@ -633,6 +678,31 @@
             {% endif %}
         </div>
 
+        <!-- Best Session Section -->
+        {% if training.best_session %}
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">&#127942;</span>
+                Best Session
+            </h2>
+            {% set best_session = training.best_session %}
+            <div class="insight-card">
+                <div class="insight-title">
+                    {{ best_session.sport.replace('_', ' ').title() if best_session.sport else 'Session' }}
+                </div>
+                <div class="insight-value">
+                    {{ format_duration(best_session.duration_seconds or 0) }}
+                    {% if best_session.distance_meters %} • {{ format_distance(best_session.distance_meters) }}{% endif %}
+                </div>
+                <div class="insight-subtitle">
+                    {% if best_session.start_time %}{{ best_session.start_time.strftime('%A, %B %d') }}{% endif %}
+                    {% if best_session.calories %} • {{ "{:,}".format(best_session.calories) }} kcal{% endif %}
+                    {% if best_session.average_heart_rate %} • Avg HR {{ best_session.average_heart_rate }} bpm{% endif %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
         <!-- Highlights Section -->
         {% if highlights %}
         <div class="section">
@@ -653,6 +723,69 @@
                 </div>
             </div>
             {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- Sleep Insights Section -->
+        {% if sleep.best_night_date or sleep.worst_night_date %}
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">&#128716;</span>
+                Sleep Insights
+            </h2>
+            <div class="insight-grid">
+                {% if sleep.best_night_date %}
+                <div class="insight-card">
+                    <div class="insight-title">Best Night</div>
+                    <div class="insight-value">{{ sleep.best_night_score|round(0)|int }}/100</div>
+                    <div class="insight-subtitle">{{ sleep.best_night_date.strftime('%A, %b %d') }}</div>
+                </div>
+                {% endif %}
+                {% if sleep.worst_night_date %}
+                <div class="insight-card">
+                    <div class="insight-title">Needs Work</div>
+                    <div class="insight-value">{{ sleep.worst_night_score|round(0)|int }}/100</div>
+                    <div class="insight-subtitle">{{ sleep.worst_night_date.strftime('%A, %b %d') }}</div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Recovery Insights Section -->
+        {% if recovery.best_day_date or recovery.worst_day_date or recovery.low_recharge_days %}
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">&#128153;</span>
+                Recovery Insights
+            </h2>
+            <div class="insight-grid">
+                {% if recovery.best_day_date %}
+                <div class="insight-card">
+                    <div class="insight-title">Best Recharge</div>
+                    <div class="insight-value">{{ recovery.best_day_status }}/5</div>
+                    <div class="insight-subtitle">{{ recovery.best_day_date.strftime('%A, %b %d') }}</div>
+                </div>
+                {% endif %}
+                {% if recovery.worst_day_date %}
+                <div class="insight-card">
+                    <div class="insight-title">Lowest Recharge</div>
+                    <div class="insight-value">{{ recovery.worst_day_status }}/5</div>
+                    <div class="insight-subtitle">{{ recovery.worst_day_date.strftime('%A, %b %d') }}</div>
+                </div>
+                {% endif %}
+            </div>
+            {% if recovery.low_recharge_days %}
+            <div class="insight-list">
+                Low recharge days:
+                {% for day in recovery.low_recharge_days[:3] %}
+                    {{ day.strftime('%a') }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+                {% if recovery.low_recharge_days|length > 3 %}
+                    +{{ recovery.low_recharge_days|length - 3 }} more
+                {% endif %}
+            </div>
+            {% endif %}
         </div>
         {% endif %}
 
