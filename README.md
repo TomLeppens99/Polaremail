@@ -67,7 +67,7 @@ If you are not technical, follow these steps carefully and copy/paste the comman
 - **Mac**: Open **Terminal** (Applications → Utilities)
 
 ### Step 4: Install the App
-Replace `PATH_TO_FOLDER` with the folder you unzipped:
+Replace `PATH_TO_FOLDER` with the folder you unzipped. If the folder name ends with `-main`, use that name.
 
 ```bash
 cd PATH_TO_FOLDER/Polaremail
@@ -102,7 +102,7 @@ Open the `.env` file with Notepad/TextEdit and fill in:
 ```bash
 python -m polar_report auth
 ```
-Open http://localhost:5000/auth and log in to Polar when asked.
+Open http://localhost:5000/auth in your browser (copy/paste the link if it does not open automatically) and log in to Polar when asked.
 
 ### Step 7: Sync Your Data and Send a Test
 ```bash
@@ -116,6 +116,7 @@ python -m polar_report schedule
 ```
 
 Keep this window open for weekly reports. If you close it, reports stop.
+For automatic startup, consider using your system scheduler (Windows Task Scheduler or macOS/Linux cron).
 
 ### 2. Configuration
 
