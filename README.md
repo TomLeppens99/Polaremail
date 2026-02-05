@@ -53,7 +53,7 @@ If you are not technical, follow these steps carefully and copy/paste the comman
 - 15-20 minutes of uninterrupted time
 
 ### Step 1: Install Python
-1. Go to https://www.python.org/downloads/ and install **Python 3.10+**
+1. Go to https://www.python.org/downloads/ and install **Python 3.10 or newer**
 2. During installation on Windows, check **"Add Python to PATH"**
 3. Restart your computer if the installer asks
 
@@ -72,6 +72,10 @@ Replace `PATH_TO_FOLDER` with the folder you unzipped, and `PROJECT_FOLDER_NAME`
 ```bash
 cd PATH_TO_FOLDER/PROJECT_FOLDER_NAME
 python -m venv venv
+```
+Example:
+```bash
+cd Desktop/polar-report-main
 ```
 
 Activate the virtual environment:
@@ -107,7 +111,7 @@ This command starts a small local server and does not open a browser automatical
 1. Open http://localhost:5000/auth in your browser
 2. Log in to Polar when asked
 
-Note: The http address is normal for local setup.
+Note: The HTTP address is normal for local setup.
 
 ### Step 7: Sync Your Data and Send a Test
 ```bash
@@ -120,7 +124,7 @@ python -m polar_report report --send
 python -m polar_report schedule
 ```
 
-Keep this window open for weekly reports. If you close it, reports stop.
+⚠️ Important: Keep this window open for weekly reports. If you close it, reports stop.
 For automatic startup after a reboot, set up a scheduler to run `python -m polar_report schedule`:
 - Windows: https://learn.microsoft.com/windows/win32/taskschd/task-scheduler-start-page
 - macOS/Linux: https://crontab.guru/
