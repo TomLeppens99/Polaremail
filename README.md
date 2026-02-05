@@ -124,12 +124,12 @@ python -m polar_report report --send
 python -m polar_report schedule
 ```
 
-⚠️ Important: Keep this window open for weekly reports. If you close it, reports stop.
+⚠️ Important: Keep this window open for scheduled reports. If you close it, reports stop.
 The scheduler runs continuously and uses the REPORT_DAY/REPORT_TIME values from your `.env`.
 For automatic startup after a reboot, set up a scheduler to run `python -m polar_report schedule`:
 - Windows: https://learn.microsoft.com/en-us/windows/win32/taskschd/using-the-task-scheduler
 - macOS/Linux: run `crontab -e` in Terminal to add a job, and use https://crontab.guru/ to build the timing line. Example line to start on reboot (replace `/path/to/project` with your actual path, like `~/Desktop/polar-report-main`):
-  `@reboot cd /path/to/project && /path/to/project/venv/bin/python -m polar_report schedule`
+  `@reboot cd /path/to/project && ./venv/bin/python -m polar_report schedule`
 
 ### 2. Configuration
 
