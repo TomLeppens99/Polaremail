@@ -102,7 +102,7 @@ Open the `.env` file with Notepad/TextEdit and fill in:
 ```bash
 python -m polar_report auth
 ```
-This command starts a small local server and does not open a browser automatically. Open http://localhost:5000/auth in your browser and log in to Polar when asked.
+This command starts a small local server and does not open a browser automatically. Open http://localhost:5000/auth in your browser and log in to Polar when asked. The http address is normal for local setup.
 
 ### Step 7: Sync Your Data and Send a Test
 ```bash
@@ -116,7 +116,9 @@ python -m polar_report schedule
 ```
 
 Keep this window open for weekly reports. If you close it, reports stop.
-For automatic startup, consider using your system scheduler (Windows Task Scheduler or macOS/Linux cron).
+For automatic startup, use a scheduler:
+- Windows: https://learn.microsoft.com/windows/win32/taskschd/task-scheduler-start-page
+- macOS/Linux: https://crontab.guru/
 
 ### 2. Configuration
 
