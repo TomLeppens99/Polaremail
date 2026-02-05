@@ -126,8 +126,8 @@ python -m polar_report schedule
 
 ⚠️ Important: Keep this window open for weekly reports. If you close it, reports stop.
 For automatic startup after a reboot, set up a scheduler to run `python -m polar_report schedule`:
-- Windows: https://learn.microsoft.com/windows/win32/taskschd/task-scheduler-start-page
-- macOS/Linux: https://crontab.guru/
+- Windows: https://learn.microsoft.com/windows/win32/taskschd/using-the-task-scheduler
+- macOS/Linux: run `crontab -e` in Terminal to add a job, and use https://crontab.guru/ to build the timing line
 
 ### 2. Configuration
 
