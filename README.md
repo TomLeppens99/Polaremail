@@ -67,7 +67,7 @@ If you are not technical, follow these steps carefully and copy/paste the comman
 - **Mac**: Open **Terminal** (Applications → Utilities)
 
 ### Step 4: Install the App
-Replace `PATH_TO_FOLDER` with the folder you unzipped, and `PROJECT_FOLDER_NAME` with the extracted folder name (often `Polaremail` or `Polaremail-main`).
+Replace `PATH_TO_FOLDER` with the folder you unzipped, and `PROJECT_FOLDER_NAME` with the extracted folder name (it often ends with `-main`).
 
 ```bash
 cd PATH_TO_FOLDER/PROJECT_FOLDER_NAME
@@ -102,7 +102,7 @@ Open the `.env` file with Notepad/TextEdit and fill in:
 ```bash
 python -m polar_report auth
 ```
-This command starts a small local server. Open http://localhost:5000/auth in your browser (copy/paste the link if it does not open automatically) and log in to Polar when asked.
+This command starts a small local server and does not open a browser automatically. Open http://localhost:5000/auth in your browser and log in to Polar when asked.
 
 ### Step 7: Sync Your Data and Send a Test
 ```bash
