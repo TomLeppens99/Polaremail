@@ -43,6 +43,80 @@ source venv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
 ```
 
+## Beginner-Friendly Setup (Non-Technical Guide)
+
+If you are not technical, follow these steps carefully and copy/paste the commands exactly as shown.
+
+### What You Need
+- A Polar account with your training data
+- A Gmail, Outlook, or other email account to send reports
+- 15-20 minutes of uninterrupted time
+
+### Step 1: Install Python
+1. Go to https://www.python.org/downloads/ and install **Python 3.10+**
+2. During installation on Windows, check **"Add Python to PATH"**
+3. Restart your computer if the installer asks
+
+### Step 2: Download the Project
+1. Open the repository page in your browser
+2. Click the green **Code** button → **Download ZIP**
+3. Unzip the file somewhere easy (e.g., Desktop)
+
+### Step 3: Open a Terminal
+- **Windows**: Open **Command Prompt** or **PowerShell**
+- **Mac**: Open **Terminal** (Applications → Utilities)
+
+### Step 4: Install the App
+Replace `PATH_TO_FOLDER` with the folder you unzipped:
+
+```bash
+cd PATH_TO_FOLDER/Polaremail
+python -m venv venv
+```
+
+Activate the virtual environment:
+- **Windows**: `venv\Scripts\activate`
+- **Mac/Linux**: `source venv/bin/activate`
+
+Install the app:
+```bash
+pip install -r requirements.txt
+```
+
+### Step 5: Fill In Your Settings
+Copy the example settings file:
+
+```bash
+cp .env.example .env  # Mac/Linux
+```
+```bash
+copy .env.example .env  # Windows
+```
+
+Open the `.env` file with Notepad/TextEdit and fill in:
+- **POLAR_CLIENT_ID** and **POLAR_CLIENT_SECRET** from https://admin.polaraccesslink.com
+- **EMAIL_USERNAME**, **EMAIL_PASSWORD**, **EMAIL_RECIPIENT**
+- **REPORT_DAY**, **REPORT_TIME**, **TIMEZONE** (optional)
+
+### Step 6: Connect Your Polar Account
+```bash
+python -m polar_report auth
+```
+Open http://localhost:5000/auth and log in to Polar when asked.
+
+### Step 7: Sync Your Data and Send a Test
+```bash
+python -m polar_report sync
+python -m polar_report report --send
+```
+
+### Step 8: Keep It Running Every Week
+```bash
+python -m polar_report schedule
+```
+
+Keep this window open for weekly reports. If you close it, reports stop.
+
 ### 2. Configuration
 
 Copy the example environment file and configure:
