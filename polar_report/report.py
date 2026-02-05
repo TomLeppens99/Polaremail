@@ -141,6 +141,64 @@ class ReportGenerator:
         if report.recovery.avg_hrv:
             lines.append(f"Avg HRV: {report.recovery.avg_hrv:.0f} ms")
 
+        if report.training.best_session:
+            best_session = report.training.best_session
+            sport = best_session.sport.replace('_', ' ').title() if best_session.sport else "Session"
+            details = format_duration(best_session.duration_seconds or 0)
+            if best_session.distance_meters:
+                details += f" • {format_distance(best_session.distance_meters)}"
+            if best_session.calories:
+                details += f" • {best_session.calories:,} kcal"
+            lines.extend([
+                "",
+                "=" * 50,
+                "BEST SESSION",
+                "=" * 50,
+                f"{sport}: {details}"
+            ])
+
+        if report.sleep.best_night_date or report.sleep.worst_night_date:
+            lines.extend([
+                "",
+                "=" * 50,
+                "SLEEP INSIGHTS",
+                "=" * 50,
+            ])
+            if report.sleep.best_night_date:
+                lines.append(
+                    f"Best Night: {report.sleep.best_night_date.strftime('%A')} "
+                    f"({report.sleep.best_night_score:.0f}/100)"
+                )
+            if report.sleep.worst_night_date:
+                lines.append(
+                    f"Needs Work: {report.sleep.worst_night_date.strftime('%A')} "
+                    f"({report.sleep.worst_night_score:.0f}/100)"
+                )
+
+        if report.recovery.best_day_date or report.recovery.worst_day_date or report.recovery.low_recharge_days:
+            lines.extend([
+                "",
+                "=" * 50,
+                "RECOVERY INSIGHTS",
+                "=" * 50,
+            ])
+            if report.recovery.best_day_date:
+                lines.append(
+                    f"Best Recharge: {report.recovery.best_day_date.strftime('%A')} "
+                    f"({report.recovery.best_day_status}/5)"
+                )
+            if report.recovery.worst_day_date:
+                lines.append(
+                    f"Lowest Recharge: {report.recovery.worst_day_date.strftime('%A')} "
+                    f"({report.recovery.worst_day_status}/5)"
+                )
+            if report.recovery.low_recharge_days:
+                low_days = ", ".join(day.strftime('%A') for day in report.recovery.low_recharge_days[:3])
+                extra = ""
+                if len(report.recovery.low_recharge_days) > 3:
+                    extra = f" (+{len(report.recovery.low_recharge_days) - 3} more)"
+                lines.append(f"Low Recharge Days: {low_days}{extra}")
+
         if report.highlights:
             lines.extend([
                 "",
