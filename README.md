@@ -43,6 +43,94 @@ source venv/bin/activate  # Linux/Mac
 pip install -r requirements.txt
 ```
 
+## Beginner-Friendly Setup (Non-Technical Guide)
+
+If you are not technical, follow these steps carefully and copy/paste the commands exactly as shown.
+
+### What You Need
+- A Polar account with your training data
+- A Gmail, Outlook, or other email account to send reports
+- 15-20 minutes of uninterrupted time
+
+### Step 1: Install Python
+1. Go to https://www.python.org/downloads/ and install **Python 3.10, 3.11, or 3.12** (older versions are not supported)
+2. During installation on Windows, check **"Add Python to PATH"**
+3. Restart your computer if the installer asks
+
+### Step 2: Download the Project
+1. Open the repository page in your browser
+2. Click the green **Code** button → **Download ZIP**
+3. Unzip the file somewhere easy (e.g., Desktop)
+
+### Step 3: Open a Terminal
+- **Windows**: Open **Command Prompt** or **PowerShell**
+- **Mac**: Open **Terminal** (Applications → Utilities)
+
+### Step 4: Install the App
+In the command below, replace `PATH_TO_FOLDER` with the folder you unzipped, and `PROJECT_FOLDER_NAME` with the extracted folder name (it often ends with `-main`).
+
+```bash
+cd PATH_TO_FOLDER/PROJECT_FOLDER_NAME
+python -m venv venv
+```
+Example:
+```bash
+cd Desktop/polar-report-main
+```
+
+Activate the virtual environment:
+- **Windows**: `venv\Scripts\activate`
+- **Mac/Linux**: `source venv/bin/activate`
+
+Install the app:
+```bash
+pip install -r requirements.txt
+```
+
+### Step 5: Fill In Your Settings
+Copy the example settings file:
+
+```bash
+cp .env.example .env  # Mac/Linux
+```
+```bash
+copy .env.example .env  # Windows
+```
+
+Open the `.env` file with Notepad/TextEdit and fill in:
+- **POLAR_CLIENT_ID** and **POLAR_CLIENT_SECRET** from https://admin.polaraccesslink.com
+- **EMAIL_USERNAME**, **EMAIL_PASSWORD**, **EMAIL_RECIPIENT**
+- **REPORT_DAY**, **REPORT_TIME**, **TIMEZONE** (optional)
+
+### Step 6: Connect Your Polar Account
+```bash
+python -m polar_report auth
+```
+This command starts a local server for authentication. Follow the steps below to complete authentication.
+
+1. Open http://localhost:5000/auth in your browser
+2. Log in to Polar when asked
+
+Note: The HTTP address is normal for local setup because the server runs only on your computer and is not exposed to the Internet.
+
+### Step 7: Sync Your Data and Send a Test
+```bash
+python -m polar_report sync
+python -m polar_report report --send
+```
+
+### Step 8: Keep It Running Every Week
+```bash
+python -m polar_report schedule
+```
+
+⚠️ Important: Keep this Terminal/Command Prompt window open while you want scheduled reports to run, unless you set up automatic startup below. Closing the window will stop the scheduler and prevent future reports from being sent.
+The scheduler runs continuously and uses the REPORT_DAY/REPORT_TIME values from your `.env`.
+For automatic startup after a reboot, set up a scheduler to run `python -m polar_report schedule`:
+- Windows: https://learn.microsoft.com/en-us/windows/win32/taskschd/using-the-task-scheduler
+- macOS/Linux: run `crontab -e` in Terminal to add a job, and use https://crontab.guru/ to build the timing line. Example line to start on reboot (update the path to match your folder):
+  `@reboot cd ~/Desktop/polar-report-main && ~/Desktop/polar-report-main/venv/bin/python -m polar_report schedule`
+
 ### 2. Configuration
 
 Copy the example environment file and configure:
