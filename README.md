@@ -67,7 +67,7 @@ If you are not technical, follow these steps carefully and copy/paste the comman
 - **Mac**: Open **Terminal** (Applications → Utilities)
 
 ### Step 4: Install the App
-Replace `PATH_TO_FOLDER` with the folder you unzipped, and `PROJECT_FOLDER_NAME` with the extracted folder name (it often ends with `-main`).
+In the command below, replace `PATH_TO_FOLDER` with the folder you unzipped, and `PROJECT_FOLDER_NAME` with the extracted folder name (it often ends with `-main`).
 
 ```bash
 cd PATH_TO_FOLDER/PROJECT_FOLDER_NAME
@@ -127,7 +127,7 @@ python -m polar_report schedule
 ⚠️ Important: Keep this window open for weekly reports. If you close it, reports stop.
 The scheduler runs continuously and uses the REPORT_DAY/REPORT_TIME values from your `.env`.
 For automatic startup after a reboot, set up a scheduler to run `python -m polar_report schedule`:
-- Windows: https://learn.microsoft.com/windows/win32/taskschd/using-the-task-scheduler
+- Windows: https://learn.microsoft.com/en-us/windows/win32/taskschd/using-the-task-scheduler
 - macOS/Linux: run `crontab -e` in Terminal to add a job, and use https://crontab.guru/ to build the timing line
 
 ### 2. Configuration
