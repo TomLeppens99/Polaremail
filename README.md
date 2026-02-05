@@ -53,7 +53,7 @@ If you are not technical, follow these steps carefully and copy/paste the comman
 - 15-20 minutes of uninterrupted time
 
 ### Step 1: Install Python
-1. Go to https://www.python.org/downloads/ and install **Python 3.10 or newer** (Python versions older than 3.10 are not supported)
+1. Go to https://www.python.org/downloads/ and install **Python 3.10 or newer** (older versions are not supported)
 2. During installation on Windows, check **"Add Python to PATH"**
 3. Restart your computer if the installer asks
 
@@ -124,12 +124,12 @@ python -m polar_report report --send
 python -m polar_report schedule
 ```
 
-⚠️ Important: Keep this window open for scheduled reports. If you close it, reports stop.
+⚠️ Important: Keep this window open for scheduled reports unless you set up automatic startup below. If you close it, reports stop.
 The scheduler runs continuously and uses the REPORT_DAY/REPORT_TIME values from your `.env`.
 For automatic startup after a reboot, set up a scheduler to run `python -m polar_report schedule`:
 - Windows: https://learn.microsoft.com/en-us/windows/win32/taskschd/using-the-task-scheduler
-- macOS/Linux: run `crontab -e` in Terminal to add a job, and use https://crontab.guru/ to build the timing line. Example line to start on reboot (replace `/path/to/project` with your actual path, like `~/Desktop/polar-report-main`):
-  `@reboot cd /path/to/project && /path/to/project/venv/bin/python -m polar_report schedule`
+- macOS/Linux: run `crontab -e` in Terminal to add a job, and use https://crontab.guru/ to build the timing line. Example line to start on reboot (update the path to match your folder):
+  `@reboot cd ~/Desktop/polar-report-main && ~/Desktop/polar-report-main/venv/bin/python -m polar_report schedule`
 
 ### 2. Configuration
 
